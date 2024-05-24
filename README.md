@@ -23,7 +23,14 @@ npm run dev
 ```sh
 npm run build
 ```
-## Project launch
+## Running the Project
+### Run command
 
 ```sh
 run-bordel
+```
+### Access
+
+```sh
+http://localhost:8080
+```
