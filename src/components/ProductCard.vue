@@ -2,12 +2,13 @@
 const props = defineProps({
   product: {},
 })
+console.log(props.product)
 </script>
 
 <template>
   <RouterLink
-    to="/product/{{props.product.id}}"
-    class="rounded-2xl border-2 p-4 gap-4 flex flex-wrap"
+    :to="`/product/${props.product.id}`"
+    class="rounded-2xl border-2 p-4 gap-4 flex flex-wrap transition ease-in-out hover:shadow-xl"
   >
     <div class="flex w-full items-center justify-around">
       <img
@@ -29,7 +30,7 @@ const props = defineProps({
       </div>
       <div class="flex justify-between items-center">
         <p class="font-nunito font-bold text-xl">{{ props.product.price }} €</p>
-        <button class="btn">Ajouter au panier</button>
+        <button class="btn bg-vermillon">Ajouter au panier</button>
       </div>
     </div>
   </RouterLink>
@@ -37,7 +38,6 @@ const props = defineProps({
 
 <style scoped>
 button {
-  background-color: var(--color-vermillon);
   color: white;
 }
 </style>

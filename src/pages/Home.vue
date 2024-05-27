@@ -7,7 +7,7 @@ import CategoryList from '@/components/CategoryList.vue'
 </script>
 
 <template>
-  <div class="w-[1440px] m-auto flex flex-wrap gap-4 mb-4">
+  <div class="w-[1440px] m-auto flex flex-wrap gap-4 my-4">
     <HomeBanner />
     <ProductList />
     <ShopList />
