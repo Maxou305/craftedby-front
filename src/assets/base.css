@@ -1,4 +1,14 @@
 /* color palette from <https://github.com/vuejs/theme> */
+
+:root{
+  --color-platinum: #DBDFE6;
+  --color-vermillon: #EA4E48;
+  --color-seasalt: #FCFAFA;
+  --color-cadet-gray: #9FA9BC;
+  --color-space-cadet: #2B2b42;
+  --color-dark-purple: #160c28;
+}
+
 :root {
   --vt-c-white: #ffffff;
   --vt-c-white-soft: #f8f8f8;
