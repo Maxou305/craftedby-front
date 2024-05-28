@@ -1,7 +1,11 @@
-<script setup></script>
+<script setup>
+import { useCartStore } from '@/stores.js'
+
+const store = useCartStore()
+</script>
 
 <template>
-  <nav>
+  <nav class="fixed w-full z-50 top-0">
     <div>
       <div class="flex justify-between flex-row p-4 w-[1440px] m-auto z-50">
         <RouterLink to="/" class="flex flex-wrap">
@@ -39,12 +43,17 @@
               alt="menu"
             />
           </RouterLink>
-          <RouterLink to="/cart"
-            ><img
-              class="icon"
-              src="../assets/images/icons/cart-icon.svg"
-              alt="cart"
-          /></RouterLink>
+          <div class="indicator">
+            <span class="indicator-item badge badge-secondary">{{
+              store.cart.length
+            }}</span>
+            <RouterLink to="/cart"
+              ><img
+                class="icon"
+                src="../assets/images/icons/cart-icon.svg"
+                alt="cart"
+            /></RouterLink>
+          </div>
           <RouterLink to="/"
             ><img
               src="../assets/images/icons/sign-up-icon.svg"
