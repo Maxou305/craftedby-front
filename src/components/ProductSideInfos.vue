@@ -15,7 +15,7 @@ console.log(quantity)
 
 <template>
   <div class="border-2 rounded-2xl p-6 flex flex-col gap-4 border-platinum">
-    <div class="flex gap-4 justify-center">
+    <div class="flex gap-4 justify-center items-center">
       <div class="flex items-center gap-2">
         <img src="../assets/images/icons/star-icon.svg" alt="star" />
         <p>{{ props.product.rating.rate }}/5</p>
@@ -53,7 +53,7 @@ console.log(quantity)
       <div class="flex flex-col justify-end">
         <p class="text-bold font-bold">{{ props.product.price }} €</p>
         <p class="text-sm line-through text-platinum">
-          {{ props.product.price }}€
+          {{ props.product.price }} €
         </p>
       </div>
       <div class="flex flex-col text-center gap-4">

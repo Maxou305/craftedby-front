@@ -13,7 +13,7 @@ const { data: product } = useFetch(
 </script>
 
 <template>
-  <div class="w-[1440px] m-auto flex flex-wrap gap-4 my-4 font-nunito">
+  <div class="mt-24 w-[1440px] m-auto flex flex-wrap gap-4 my-4 font-nunito">
     <img class="w-80" :src="product.image" alt="" />
     <div class="grid grid-cols-[2fr,1fr] gap-2">
       <div class="flex flex-col gap-2">

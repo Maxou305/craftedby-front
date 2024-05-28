@@ -30,13 +30,9 @@ export const useCartStore = defineStore('cart', {
   },
 })
 
-export const useProductsStore = defineStore('products', {
+export const useProductsStore = defineStore('product', {
   state: () => ({
-    state: () => ({
-      products: [],
-      isLoading: false,
-      error: null,
-    }),
+    products: [],
   }),
   getters: {
     getById(id) {
@@ -47,19 +43,11 @@ export const useProductsStore = defineStore('products', {
     },
   },
   actions: {
-    fetchProducts() {
-      try {
-        const { data: data } = useFetch(
-          'https://fakestoreapi.com/products',
-        ).then((data) => (this.products = data))
-        // this.products = data
-        this.error = null
-      } catch (error) {
-        console.log(error)
-        return error
-      } finally {
-        this.isLoading = false
-      }
+    async fetchProducts() {
+      const { data } = await useFetch('https://fakestoreapi.com/products')
+        .get()
+        .json()
+      this.products = data
     },
   },
 })
