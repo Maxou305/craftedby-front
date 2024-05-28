@@ -39,7 +39,7 @@
               alt="menu"
             />
           </RouterLink>
-          <RouterLink to="/"
+          <RouterLink to="/cart"
             ><img
               class="icon"
               src="../assets/images/icons/cart-icon.svg"

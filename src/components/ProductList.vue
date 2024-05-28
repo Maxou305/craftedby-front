@@ -1,9 +1,16 @@
 <script setup>
 import ProductCard from '@/components/ProductCard.vue'
 import { useFetch } from '@vueuse/core'
+import { useProductsStore } from '@/stores.js'
+import { onMounted } from 'vue'
 
 const { data: products } = useFetch('https://fakestoreapi.com/products').json()
-console.log(products)
+
+// const store = useProductsStore()
+// onMounted(() => {
+//   store.fetchProducts()
+//   console.log(products)
+// })
 </script>
 
 <template>

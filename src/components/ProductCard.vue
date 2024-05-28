@@ -2,12 +2,11 @@
 const props = defineProps({
   product: {},
 })
-console.log(props.product)
 </script>
 
 <template>
-  <RouterLink
-    :to="`/product/${props.product.id}`"
+  <div
+    @click="$router.push(`/product/${props.product.id}`)"
     class="rounded-2xl border-2 p-4 gap-4 flex flex-wrap transition ease-in-out hover:shadow-xl"
   >
     <div class="flex w-full items-center justify-around">
@@ -33,7 +32,7 @@ console.log(props.product)
         <button class="btn bg-vermillon">Ajouter au panier</button>
       </div>
     </div>
-  </RouterLink>
+  </div>
 </template>
 
 <style scoped>
