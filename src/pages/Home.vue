@@ -4,10 +4,6 @@ import ProductList from '@/components/ProductList.vue'
 import ShopList from '@/components/ShopList.vue'
 import ShopAd from '@/components/ShopAd.vue'
 import CategoryList from '@/components/CategoryList.vue'
-import { useUserStore } from '@/stores.js'
-
-const userStore = useUserStore()
-userStore.getAuthUser()
 </script>
 
 <template>
