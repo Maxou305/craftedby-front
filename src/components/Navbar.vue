@@ -51,6 +51,7 @@ function handleClick() {
               alt="menu"
             />
           </RouterLink>
+
           <button
             v-if="!userStore.isAuthenticated"
             onclick="my_modal_2.showModal()"
@@ -61,7 +62,8 @@ function handleClick() {
               alt="sign up"
             />
           </button>
-          <router-link v-if="userStore.isAuthenticated" to="/profile">
+
+          <div class="dropdown dropdown-hover" v-if="userStore.isAuthenticated">
             <button>
               <img
                 src="../assets/images/icons/sign-in-icon.svg"
@@ -69,7 +71,15 @@ function handleClick() {
                 alt="sign up"
               />
             </button>
-          </router-link>
+            <ul
+              tabindex="0"
+              class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+            >
+              <li><router-link to="/profile">Profile</router-link></li>
+              <li><router-link to="/logout">Déconnexion</router-link></li>
+            </ul>
+          </div>
+
           <div class="indicator">
             <span class="indicator-item badge badge-secondary">{{
               cartStore.cart.length
