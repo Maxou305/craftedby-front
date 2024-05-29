@@ -15,9 +15,7 @@ export const useCartStore = defineStore('cart', {
   },
   actions: {
     setCart() {
-      if (this.cart.length === 0) {
-        this.cart = JSON.parse(localStorage.getItem('cart'))
-      }
+      this.cart = JSON.parse(localStorage.getItem('cart'))
     },
     addToCart(product, color, matter, size, quantity) {
       const existingProduct = this.cart.find(
@@ -32,7 +30,7 @@ export const useCartStore = defineStore('cart', {
       }
     },
     removeFromCart(id) {
-      this.cart = this.cart.filter((item) => item.product.id !== id)
+      this.cart = [...this.cart.filter((item) => item.product.id !== id)]
       save(this.cart)
     },
   },
@@ -80,7 +78,6 @@ export const useUserStore = defineStore('user', {
           if (json) {
             console.log(json)
             this.user = json
-            console.log()
             this.isAuthenticated = true
           } else {
             throw new Error('User not found')

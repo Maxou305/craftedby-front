@@ -21,7 +21,6 @@ const actualStep = ref(0)
 
 const userStore = useUserStore()
 const cartStore = useCartStore()
-const cart = cartStore.cart
 
 function handleNextStep() {
   if (actualStep.value === 0 && userStore.isAuthenticated) {
@@ -38,11 +37,11 @@ function handleNextStep() {
     <CartSteps :steps="steps" />
     <div class="grid grid-cols-[2fr,1fr] gap-2" v-if="actualStep === 0">
       <div class="flex flex-col">
-        <CartProductList :cart="cart" />
+        <CartProductList :cart="cartStore.cart" />
         <CartRecommendations />
       </div>
       <CartSideInfos
-        :cart="cart"
+        :cart="cartStore.cart"
         :total="cartStore.totalPrice"
         :handleNextStep="handleNextStep"
       />
