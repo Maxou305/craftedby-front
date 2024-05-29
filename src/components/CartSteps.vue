@@ -8,7 +8,7 @@ const props = defineProps({
   <ul class="steps steps-vertical lg:steps-horizontal m-auto">
     <li
       :class="{ step: true, 'step-primary': step.checked }"
-      v-for="step in steps"
+      v-for="step in props.steps"
     >
       {{ step.name }}
     </li>

@@ -1,7 +1,8 @@
 <script setup>
 const props = defineProps({
-  cart: [],
+  cart: Array,
   total: Number,
+  handleNextStep: Function,
 })
 </script>
 
@@ -34,7 +35,7 @@ const props = defineProps({
       <p class="font-bold text-title text-end">Total : {{ props.total }} €</p>
       <button
         class="btn bg-vermillon text-platinum hover:text-vermillon hover:bg-platinum"
-        @click="$router.push('/')"
+        @click="handleNextStep"
       >
         Commander
       </button>
