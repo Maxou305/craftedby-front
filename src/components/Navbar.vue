@@ -1,15 +1,24 @@
 <script setup>
 import { useCartStore, useUserStore } from '@/stores.js'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 const cartStore = useCartStore()
 const userStore = useUserStore()
+const router = useRouter()
 
 const username = ref('')
 const password = ref('')
 
-function handleClick() {
-  userStore.login(username.value, password.value)
+function handleLogin() {
+  userStore.login(username.value, password.value).then((res) => {
+    document.getElementById('my_modal_2').open = false
+  })
+}
+function handleLogout() {
+  userStore.logout()
+  router.push('/')
+  window.location.reload()
 }
 </script>
 
@@ -77,7 +86,7 @@ function handleClick() {
             >
               <li><router-link to="/profile">Profile</router-link></li>
               <li>
-                <button @click="userStore.logout">Déconnexion</button>
+                <button @click="handleLogout">Déconnexion</button>
               </li>
             </ul>
           </div>
@@ -137,7 +146,7 @@ function handleClick() {
                 />
               </label>
               <div class="text-center mt-4">
-                <button class="btn bg-vermillon" @click="handleClick">
+                <button class="btn bg-vermillon" @click="handleLogin">
                   Connexion
                 </button>
               </div>
