@@ -1,5 +1,5 @@
 <script setup>
-import { useCartStore, useOrderStore, useUserStore } from '@/stores.js'
+import { useOrderStore, useUserStore } from '@/stores.js'
 import { ref } from 'vue'
 
 const props = defineProps({
@@ -8,21 +8,13 @@ const props = defineProps({
 
 const user = useUserStore().user
 const orderStore = useOrderStore()
-const cartStore = useCartStore()
 
 const shippingCountry = ref('')
 const shippingMode = ref('')
 
 console.log('shipping', orderStore)
 function handleValidateShipment() {
-  orderStore.newOrder(
-    cartStore.cart,
-    cartStore.totalPrice,
-    false,
-    user,
-    shippingCountry.value,
-    shippingMode.value,
-  )
+  orderStore.newOrder(false, user, shippingCountry.value, shippingMode.value)
   console.log(orderStore.orderList[0])
   props.handleNextStep()
 }
@@ -72,17 +64,32 @@ function handleValidateShipment() {
         <td class="align-text-top p-4">
           <label>MODES DE LIVRAISON </label>
         </td>
-        <td class="flex flex-col p-4">
+        <td class="flex flex-col p-4 gap-2">
           <div class="flex gap-2 items-center">
-            <input type="radio" name="shippingMode" v-model="shippingMode" />
+            <input
+              type="radio"
+              name="shippingMode"
+              v-model="shippingMode"
+              value="BOUTIQUE"
+            />
             <label>Boutique - GRATUIT</label>
           </div>
           <div class="flex gap-2 items-center">
-            <input type="radio" name="shippingMode" v-model="shippingMode" />
+            <input
+              type="radio"
+              name="shippingMode"
+              v-model="shippingMode"
+              value="POINT_RELAIS"
+            />
             <label>Livraison en point relais</label>
           </div>
           <div class="flex gap-2 items-center">
-            <input type="radio" name="shippingMode" v-model="shippingMode" />
+            <input
+              type="radio"
+              name="shippingMode"
+              v-model="shippingMode"
+              value="DOMICILE"
+            />
             <label>Livraison à domicile</label>
           </div>
         </td>

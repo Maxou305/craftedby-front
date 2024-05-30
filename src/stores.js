@@ -1,6 +1,12 @@
 import { defineStore } from 'pinia'
 import { useFetch } from '@vueuse/core'
 
+const ShippingMode = {
+  BOUTIQUE: 0,
+  POINT_RELAIS: 2,
+  DOMICILE: 5,
+}
+
 //store to handle the cart. Every action will save the cart in the local storage
 export const useCartStore = defineStore('cart', {
   state: () => ({
@@ -120,32 +126,35 @@ export const useUserStore = defineStore('user', {
 export const useOrderStore = defineStore('order', {
   state: () => ({
     orderList: [],
+    validatedOrderList: [],
   }),
   getters: {},
   actions: {
     getByUserId(id) {
       return this.orderList.find((order) => order.user.id === id)
     },
-    newOrder(
-      cart,
-      price,
-      isValidated,
-      user,
-      shippingCountry,
-      shippingMode,
-      artisan = null,
-    ) {
+    newOrder(isValidated, user, shippingCountry, shippingMode, artisan = null) {
+      const store = useCartStore()
       const order = {
-        cart,
-        price,
+        cart: store.cart,
+        price: store.totalPrice,
         isValidated,
         user,
         shippingCountry,
         shippingMode,
+        shippingPrice: ShippingMode[shippingMode],
         artisan,
       }
       this.orderList.push(order)
+      console.log('cart', store.cart)
       save('orderList', this.orderList)
+    },
+    validateOrder(id) {
+      const order = this.orderList.find((order) => order.id === id)
+      order.isValidated = true
+      this.validatedOrderList.push(order)
+      save('validatedOrderList', this.validatedOrderList)
+      emptyCart()
     },
   },
 })
@@ -163,4 +172,10 @@ function decode(token) {
         .join(''),
     ),
   )
+}
+
+function emptyCart() {
+  const cartStore = useCartStore()
+  cartStore.cart = []
+  save('cart', cartStore.cart)
 }

@@ -3,6 +3,14 @@ const props = defineProps({
   cart: Array,
   total: Number,
   handleNextStep: Function,
+  isPaymentStep: {
+    type: Boolean,
+    default: false,
+  },
+  shippingPrice: {
+    type: Number,
+    default: 0,
+  },
 })
 </script>
 
@@ -21,9 +29,13 @@ const props = defineProps({
             </p>
           </div>
         </div>
+        <div v-if="isPaymentStep" class="flex justify-between">
+          <p>Frais de port</p>
+          <p class="font-bold">{{ shippingPrice }}€</p>
+        </div>
       </div>
     </div>
-    <div class="flex items-center gap-2">
+    <div v-if="!isPaymentStep" class="flex items-center gap-2">
       <input
         type="text"
         placeholder="CODE PROMO"
@@ -34,6 +46,7 @@ const props = defineProps({
     <div class="flex flex-col gap-2">
       <p class="font-bold text-title text-end">Total : {{ props.total }} €</p>
       <button
+        v-if="!isPaymentStep"
         class="btn bg-vermillon text-platinum hover:text-vermillon hover:bg-platinum"
         @click="handleNextStep"
       >
