@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { useFetch } from '@vueuse/core'
 
+//store to handle the cart. Every action will save the cart in the local storage
 export const useCartStore = defineStore('cart', {
   state: () => ({
     cart: [],
@@ -15,7 +16,8 @@ export const useCartStore = defineStore('cart', {
   },
   actions: {
     setCart() {
-      this.cart = JSON.parse(localStorage.getItem('cart'))
+      if (localStorage.getItem('cart'))
+        this.cart = JSON.parse(localStorage.getItem('cart'))
     },
     addToCart(product, color, matter, size, quantity) {
       const existingProduct = this.cart.find(
@@ -23,19 +25,20 @@ export const useCartStore = defineStore('cart', {
       )
       if (existingProduct) {
         existingProduct.quantity += quantity
-        save(this.cart)
+        save('cart', this.cart)
       } else {
         this.cart.push({ product, color, matter, size, quantity })
-        save(this.cart)
+        save('cart', this.cart)
       }
     },
     removeFromCart(id) {
       this.cart = [...this.cart.filter((item) => item.product.id !== id)]
-      save(this.cart)
+      save('cart', this.cart)
     },
   },
 })
 
+// store to handle all the products (be careful with the async !!!!)
 export const useProductsStore = defineStore('product', {
   state: () => ({
     products: [],
@@ -58,6 +61,7 @@ export const useProductsStore = defineStore('product', {
   },
 })
 
+// store to handle the user (becareful with the async !!!!!)
 export const useUserStore = defineStore('user', {
   state: () => ({
     user: null,
@@ -100,20 +104,54 @@ export const useUserStore = defineStore('user', {
       })
         .then((res) => res.json())
         .then((json) => {
-          localStorage.setItem('token', json.token)
+          save('token', json.token)
           this.token = json.token
-          const decoded = decode(json.token)
         })
     },
     logout() {
       this.user = null
       localStorage.removeItem('token')
+      console.log('Le user est déco ! Pour preuve : ', this.user)
     },
   },
 })
 
-function save(cart) {
-  localStorage.setItem('cart', JSON.stringify(cart))
+// store used to handle orders
+export const useOrderStore = defineStore('order', {
+  state: () => ({
+    orderList: [],
+  }),
+  getters: {},
+  actions: {
+    getByUserId(id) {
+      return this.orderList.find((order) => order.user.id === id)
+    },
+    newOrder(
+      cart,
+      price,
+      isValidated,
+      user,
+      shippingCountry,
+      shippingMode,
+      artisan = null,
+    ) {
+      const order = {
+        cart,
+        price,
+        isValidated,
+        user,
+        shippingCountry,
+        shippingMode,
+        artisan,
+      }
+      this.orderList.push(order)
+      save('orderList', this.orderList)
+    },
+  },
+})
+
+function save(id, item) {
+  localStorage.setItem(id, JSON.stringify(item))
 }
 
 function decode(token) {
