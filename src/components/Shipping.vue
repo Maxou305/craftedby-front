@@ -1,11 +1,31 @@
 <script setup>
-import { useUserStore } from '@/stores.js'
+import { useCartStore, useOrderStore, useUserStore } from '@/stores.js'
+import { ref } from 'vue'
 
 const props = defineProps({
   handleNextStep: Function,
 })
 
 const user = useUserStore().user
+const orderStore = useOrderStore()
+const cartStore = useCartStore()
+
+const shippingCountry = ref('')
+const shippingMode = ref('')
+
+console.log('shipping', orderStore)
+function handleValidateShipment() {
+  orderStore.newOrder(
+    cartStore.cart,
+    cartStore.totalPrice,
+    false,
+    user,
+    shippingCountry.value,
+    shippingMode.value,
+  )
+  console.log(orderStore.orderList[0])
+  props.handleNextStep()
+}
 </script>
 
 <template>
@@ -37,7 +57,10 @@ const user = useUserStore().user
           <label>PAYS DE LIVRAISON </label>
         </td>
         <td class="p-4">
-          <select class="select select-bordered w-full max-w-xs">
+          <select
+            v-model="shippingCountry"
+            class="select select-bordered w-full max-w-xs"
+          >
             <option disabled selected></option>
             <option>France</option>
             <option>Belgique</option>
@@ -51,15 +74,15 @@ const user = useUserStore().user
         </td>
         <td class="flex flex-col p-4">
           <div class="flex gap-2 items-center">
-            <input type="radio" />
+            <input type="radio" name="shippingMode" v-model="shippingMode" />
             <label>Boutique - GRATUIT</label>
           </div>
           <div class="flex gap-2 items-center">
-            <input type="radio" />
+            <input type="radio" name="shippingMode" v-model="shippingMode" />
             <label>Livraison en point relais</label>
           </div>
           <div class="flex gap-2 items-center">
-            <input type="radio" />
+            <input type="radio" name="shippingMode" v-model="shippingMode" />
             <label>Livraison à domicile</label>
           </div>
         </td>
@@ -112,7 +135,7 @@ const user = useUserStore().user
     <div class="text-end mt-4">
       <button
         class="btn bg-vermillon text-platinum hover:text-vermillon hover:bg-platinum"
-        @click="handleNextStep"
+        @click="handleValidateShipment"
       >
         Paiement
       </button>
