@@ -76,7 +76,9 @@ function handleClick() {
               class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
             >
               <li><router-link to="/profile">Profile</router-link></li>
-              <li><router-link to="/logout">Déconnexion</router-link></li>
+              <li>
+                <button @click="userStore.logout">Déconnexion</button>
+              </li>
             </ul>
           </div>
 
