@@ -9,7 +9,7 @@ const store = useCartStore()
 </script>
 
 <template>
-  <div class="flex border-2 h-36 p-4 rounded-md">
+  <div class="flex border bg-seasalt h-36 p-4 rounded-md">
     <div class="flex gap-4">
       <img
         :src="props.product.product.image"

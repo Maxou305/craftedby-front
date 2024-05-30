@@ -10,11 +10,12 @@ const color = ref('')
 const matter = ref('')
 const size = ref('')
 const quantity = ref(0)
-console.log(quantity)
 </script>
 
 <template>
-  <div class="border-2 rounded-2xl p-6 flex flex-col gap-4 border-platinum">
+  <div
+    class="border bg-seasalt rounded-2xl p-6 flex flex-col gap-4 border-platinum"
+  >
     <div class="flex gap-4 justify-center items-center">
       <div class="flex items-center gap-2">
         <img src="../assets/images/icons/star-icon.svg" alt="star" />

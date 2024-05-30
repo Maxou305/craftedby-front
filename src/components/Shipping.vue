@@ -12,16 +12,14 @@ const orderStore = useOrderStore()
 const shippingCountry = ref('')
 const shippingMode = ref('')
 
-console.log('shipping', orderStore)
 function handleValidateShipment() {
   orderStore.newOrder(false, user, shippingCountry.value, shippingMode.value)
-  console.log(orderStore.orderList[0])
   props.handleNextStep()
 }
 </script>
 
 <template>
-  <div class="font-nunito m-auto">
+  <div class="font-nunito m-auto bg-seasalt">
     <table class="border border-collapse">
       <tr class="border">
         <td class="p-4">
@@ -67,6 +65,7 @@ function handleValidateShipment() {
         <td class="flex flex-col p-4 gap-2">
           <div class="flex gap-2 items-center">
             <input
+              class="radio"
               type="radio"
               name="shippingMode"
               v-model="shippingMode"
@@ -76,6 +75,7 @@ function handleValidateShipment() {
           </div>
           <div class="flex gap-2 items-center">
             <input
+              class="radio"
               type="radio"
               name="shippingMode"
               v-model="shippingMode"
@@ -85,6 +85,7 @@ function handleValidateShipment() {
           </div>
           <div class="flex gap-2 items-center">
             <input
+              class="radio"
               type="radio"
               name="shippingMode"
               v-model="shippingMode"

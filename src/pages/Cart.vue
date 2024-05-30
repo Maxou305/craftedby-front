@@ -34,7 +34,7 @@ function handleNextStep() {
 
 <template>
   <div
-    v-if="cartStore.cart.length === 0"
+    v-if="cartStore.cart.length === 0 && actualStep !== 4"
     class="mt-24 w-[1440px] m-auto flex flex-col justify-center gap-4 my-4"
   >
     <h1 class="text-center">Panier vide</h1>

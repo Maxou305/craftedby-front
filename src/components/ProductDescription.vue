@@ -6,7 +6,7 @@ const props = defineProps({
 
 <template>
   <div
-    class="h-auto border-2 rounded-2xl p-6 flex flex-col gap-4 border-platinum"
+    class="h-auto border bg-seasalt rounded-2xl p-6 flex flex-col gap-4 border-platinum"
   >
     <h2 class="text-normal font-bold font-nunito">Notre produit</h2>
     <p class="font-nunito">

@@ -23,7 +23,7 @@ function handleClick() {
 <template>
   <div class="grid grid-cols-[2fr,1fr] gap-2">
     <div
-      class="h-auto border-2 rounded-md p-6 flex flex-col gap-4 border-platinum font-nunito"
+      class="h-auto border bg-seasalt rounded-md p-6 flex flex-col gap-4 border-platinum font-nunito"
     >
       <h1 class="font-bold text-title">Paiement</h1>
       <label>Nom sur la carte</label>

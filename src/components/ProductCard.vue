@@ -6,8 +6,7 @@ const props = defineProps({
 
 <template>
   <div
-    @click="$router.push(`/product/${props.product.id}`)"
-    class="rounded-2xl border-2 p-4 gap-4 flex flex-wrap transition ease-in-out hover:shadow-xl"
+    class="rounded-2xl border p-4 gap-4 flex flex-wrap transition ease-in-out hover:shadow-xl bg-seasalt"
   >
     <div class="flex w-full items-center justify-around">
       <img
@@ -29,7 +28,12 @@ const props = defineProps({
       </div>
       <div class="flex justify-between items-center">
         <p class="font-nunito font-bold text-xl">{{ props.product.price }} €</p>
-        <button class="btn bg-vermillon">Ajouter au panier</button>
+        <button
+          @click="$router.push(`/product/${props.product.id}`)"
+          class="btn bg-vermillon"
+        >
+          Voir le produit
+        </button>
       </div>
     </div>
   </div>

@@ -16,7 +16,7 @@ const props = defineProps({
 
 <template>
   <div
-    class="border-2 rounded-md text-center p-4 flex flex-col justify-between min-h-96"
+    class="border bg-seasalt rounded-md text-center p-4 flex flex-col justify-between min-h-96"
   >
     <div class="gap-4 flex flex-col">
       <h1 class="font-bold">Récapitulatif de votre commande</h1>

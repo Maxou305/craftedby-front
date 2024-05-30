@@ -4,7 +4,6 @@ import CartProductCard from '@/components/CartProductCard.vue'
 const props = defineProps({
   cart: Array,
 })
-console.log('cart', props.cart)
 </script>
 <template>
   <div class="flex flex-col gap-2">
