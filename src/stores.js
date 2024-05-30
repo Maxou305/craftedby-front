@@ -98,26 +98,28 @@ export const useUserStore = defineStore('user', {
         })
     },
     login(username, password) {
-      fetch('https://fakestoreapi.com/auth/login', {
+      return fetch('https://fakestoreapi.com/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          username: username,
-          password: password,
+          username,
+          password,
         }),
       })
         .then((res) => res.json())
         .then((json) => {
           save('token', json.token)
           this.token = json.token
+          this.isAuthenticated = true
+          return 'ok'
         })
     },
     logout() {
       this.user = null
+      this.isAuthenticated = false
       localStorage.removeItem('token')
-      console.log('Le user est déco ! Pour preuve : ', this.user)
     },
   },
 })
@@ -146,7 +148,6 @@ export const useOrderStore = defineStore('order', {
         artisan,
       }
       this.orderList.push(order)
-      console.log('cart', store.cart)
       save('orderList', this.orderList)
     },
     validateOrder(id) {
