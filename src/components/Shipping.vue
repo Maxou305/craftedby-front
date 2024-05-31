@@ -2,6 +2,12 @@
 import { useOrderStore, useUserStore } from '@/stores.js'
 import { ref } from 'vue'
 
+const ShippingPrice = {
+  BOUTIQUE: 0,
+  POINT_RELAIS: 2,
+  DOMICILE: 5,
+}
+
 const props = defineProps({
   handleNextStep: Function,
 })
@@ -13,7 +19,11 @@ const shippingCountry = ref('')
 const shippingMode = ref('')
 
 function handleValidateShipment() {
-  orderStore.newOrder(false, user, shippingCountry.value, shippingMode.value)
+  orderStore.orderList[0].shippingCountry = shippingCountry.value
+  orderStore.orderList[0].shippingMode = shippingMode.value
+  orderStore.orderList[0].shippingPrice = ShippingPrice[shippingMode.value]
+
+  console.log('maj order ', orderStore.orderList[0])
   props.handleNextStep()
 }
 </script>

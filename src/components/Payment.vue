@@ -16,6 +16,7 @@ const total = order.price + order.shippingPrice
 
 function handleClick() {
   orderStore.validateOrder(order.id)
+  console.log('final', orderStore.getByUserId(user.id))
   props.handleNextStep()
 }
 </script>

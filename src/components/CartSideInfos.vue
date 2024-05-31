@@ -1,4 +1,7 @@
 <script setup>
+import { Reduction, useOrderStore, useUserStore } from '@/stores.js'
+import { ref } from 'vue'
+
 const props = defineProps({
   cart: Array,
   total: Number,
@@ -12,6 +15,27 @@ const props = defineProps({
     default: 0,
   },
 })
+
+const promo = ref(0)
+
+const creatorCode = ref(null)
+const toto = ref(false)
+
+const orderStore = useOrderStore()
+const userStore = useUserStore()
+
+function applyCode() {
+  toto.value = true
+  promo.value = Reduction[creatorCode.value.toUpperCase()]
+  console.log(promo.value)
+}
+
+function handleClick() {
+  orderStore.newOrder(userStore.user, creatorCode.value)
+  props.handleNextStep()
+  const order = orderStore.orderList[0]
+  console.log('order', order)
+}
 </script>
 
 <template>
@@ -29,26 +53,38 @@ const props = defineProps({
             </p>
           </div>
         </div>
+
+        <div v-if="toto" class="flex justify-between">
+          <p>Réduction</p>
+          <p class="font-bold">{{ promo }} %</p>
+        </div>
         <div v-if="isPaymentStep" class="flex justify-between">
           <p>Frais de port</p>
-          <p class="font-bold">{{ shippingPrice }}€</p>
+          <p class="font-bold">{{ shippingPrice }} €</p>
         </div>
       </div>
     </div>
-    <div v-if="!isPaymentStep" class="flex items-center gap-2">
+    <div v-if="!isPaymentStep || !toto" class="flex items-center gap-2">
       <input
         type="text"
-        placeholder="CODE PROMO"
+        placeholder="CODE CREATEUR"
         class="input input-bordered w-full"
+        v-model="creatorCode"
       />
-      <button class="btn bg-emerald-300">Appliquer</button>
+      <button @click="applyCode" class="btn bg-emerald-300">Appliquer</button>
     </div>
     <div class="flex flex-col gap-2">
-      <p class="font-bold text-title text-end">Total : {{ props.total }} €</p>
+      <p class="font-bold text-title text-end">
+        Total :
+        {{
+          promo === 0 ? props.total : props.total - (props.total * promo) / 100
+        }}
+        €
+      </p>
       <button
         v-if="!isPaymentStep"
         class="btn bg-vermillon text-platinum hover:text-vermillon hover:bg-platinum"
-        @click="handleNextStep"
+        @click="handleClick"
       >
         Commander
       </button>

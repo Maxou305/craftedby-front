@@ -1,10 +1,12 @@
 import { defineStore } from 'pinia'
 import { useFetch } from '@vueuse/core'
 
-const ShippingMode = {
-  BOUTIQUE: 0,
-  POINT_RELAIS: 2,
-  DOMICILE: 5,
+export const Reduction = {
+  ZOB: 100,
+  JB: 0,
+  THOMAS: 66,
+  CAROLE: 1,
+  GUNAL: 13,
 }
 
 //store to handle the cart. Every action will save the cart in the local storage
@@ -135,17 +137,19 @@ export const useOrderStore = defineStore('order', {
     getByUserId(id) {
       return this.orderList.find((order) => order.user.id === id)
     },
-    newOrder(isValidated, user, shippingCountry, shippingMode, artisan = null) {
+    newOrder(user, creatorCode) {
       const store = useCartStore()
       const order = {
         cart: store.cart,
         price: store.totalPrice,
-        isValidated,
+        isValidated: false,
         user,
-        shippingCountry,
-        shippingMode,
-        shippingPrice: ShippingMode[shippingMode],
-        artisan,
+        shippingCountry: null,
+        shippingMode: null,
+        shippingPrice: null,
+        artisan: null,
+        creatorCode,
+        reduction: Reduction[creatorCode],
       }
       this.orderList.push(order)
       save('orderList', this.orderList)
