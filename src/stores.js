@@ -49,20 +49,20 @@ export const useProductsStore = defineStore('product', {
   state: () => ({
     products: [],
   }),
-  getters: {
-    getById(id) {
-      return this.filter((product) => product.id === id)
-    },
-    getByCategory(category) {
-      return this.filter((product) => product.category === category)
-    },
-  },
+  getters: {},
   actions: {
     async fetchProducts() {
       const { data } = await useFetch('https://fakestoreapi.com/products')
         .get()
         .json()
       this.products = data
+    },
+    async getById(id) {
+      const response = await fetch(`https://fakestoreapi.com/products/${id}`)
+      return await response.json()
+    },
+    getByCategory(category) {
+      return this.filter((product) => product.category === category)
     },
   },
 })
