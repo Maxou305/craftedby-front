@@ -137,7 +137,7 @@ export const useOrderStore = defineStore('order', {
     getByUserId(id) {
       return this.orderList.find((order) => order.user.id === id)
     },
-    newOrder(user, creatorCode) {
+    newOrder(user, creatorCode, reduction) {
       const store = useCartStore()
       const order = {
         cart: store.cart,
@@ -149,7 +149,7 @@ export const useOrderStore = defineStore('order', {
         shippingPrice: null,
         artisan: null,
         creatorCode,
-        reduction: Reduction[creatorCode],
+        reduction,
       }
       this.orderList.push(order)
       save('orderList', this.orderList)

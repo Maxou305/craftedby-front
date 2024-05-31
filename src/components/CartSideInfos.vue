@@ -31,7 +31,7 @@ function applyCode() {
 }
 
 function handleClick() {
-  orderStore.newOrder(userStore.user, creatorCode.value)
+  orderStore.newOrder(userStore.user, creatorCode.value, promo.value)
   props.handleNextStep()
   const order = orderStore.orderList[0]
   console.log('order', order)

@@ -19,9 +19,10 @@ const shippingCountry = ref('')
 const shippingMode = ref('')
 
 function handleValidateShipment() {
-  orderStore.orderList[0].shippingCountry = shippingCountry.value
-  orderStore.orderList[0].shippingMode = shippingMode.value
-  orderStore.orderList[0].shippingPrice = ShippingPrice[shippingMode.value]
+  orderStore.getByUserId(user.id).shippingCountry = shippingCountry.value
+  orderStore.getByUserId(user.id).shippingMode = shippingMode.value
+  orderStore.getByUserId(user.id).shippingPrice =
+    ShippingPrice[shippingMode.value]
 
   console.log('maj order ', orderStore.orderList[0])
   props.handleNextStep()
