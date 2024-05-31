@@ -19,8 +19,8 @@ function handleValidateShipment() {
 </script>
 
 <template>
-  <div class="font-nunito m-auto bg-seasalt">
-    <table class="border border-collapse">
+  <div class="font-nunito m-auto">
+    <table class="border border-collapse bg-seasalt">
       <tr class="border">
         <td class="p-4">
           <h1 class="font-bold text-title">Récapitulatif</h1>
