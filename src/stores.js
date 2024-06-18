@@ -54,7 +54,7 @@ export const useProductsStore = defineStore('product', {
   getters: {},
   actions: {
     async fetchProducts() {
-      const { data } = await useFetch(process.env.BASE_URL + '/products')
+      const { data } = await useFetch('http://127.0.0.1:8000/api/products')
         .get()
         .json()
       this.products = data
@@ -79,16 +79,19 @@ export const useUserStore = defineStore('user', {
   getters: {},
   actions: {
     getAuthUser() {
-      let userId = 0
       if (localStorage.getItem('token') && this.token === null) {
         this.token = localStorage.getItem('token')
-        userId = decode(this.token).sub
       }
-      fetch(`https://fakestoreapi.com/users/${userId}`)
+      fetch('http://localhost:8000/api/me', {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${this.token}`,
+          'Content-Type': 'application/json',
+        },
+      })
         .then((res) => res.json())
         .then((json) => {
           if (json) {
-            console.log(json)
             this.user = json
             this.isAuthenticated = true
           } else {
@@ -96,11 +99,32 @@ export const useUserStore = defineStore('user', {
           }
         })
         .catch((error) => {
-          console.error('Error : ', error)
+          console.error('Error: ', error)
+        })
+    },
+    register(username, email, password) {
+      return fetch('http://localhost:8000/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username,
+          email,
+          password,
+        }),
+      })
+        .then((res) => res.json())
+        .then((json) => {
+          save('token', json.token)
+          console.log('json', json.token)
+          this.token = json.token
+          this.isAuthenticated = true
+          return 'ok'
         })
     },
     login(username, password) {
-      return fetch('https://fakestoreapi.com/auth/login', {
+      return fetch('http://localhost:8000/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -165,18 +189,7 @@ export const useOrderStore = defineStore('order', {
 })
 
 function save(id, item) {
-  localStorage.setItem(id, JSON.stringify(item))
-}
-
-function decode(token) {
-  return JSON.parse(
-    decodeURIComponent(
-      atob(token.split('.')[1].replace('-', '+').replace('_', '/'))
-        .split('')
-        .map((c) => `%${('00' + c.charCodeAt(0).toString(16)).slice(-2)}`)
-        .join(''),
-    ),
-  )
+  localStorage.setItem(id, item)
 }
 
 function emptyCart() {

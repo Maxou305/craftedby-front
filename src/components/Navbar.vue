@@ -53,7 +53,7 @@ function handleLogout() {
           </div>
         </div>
         <div class="flex gap-6 content-center flex-wrap rounded-r-2xl">
-          <RouterLink to="/"
+          <RouterLink to="/register"
             ><img
               class="icon"
               src="../assets/images/icons/menu-icon.png"

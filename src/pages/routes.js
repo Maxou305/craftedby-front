@@ -3,6 +3,7 @@ import Home from '@/pages/Home.vue'
 import ProductPage from '@/pages/ProductPage.vue'
 import Cart from '@/pages/Cart.vue'
 import Profile from '@/pages/Profile.vue'
+import Register from '@/pages/Register.vue'
 
 const routes = [
   {
@@ -25,6 +26,11 @@ const routes = [
     path: '/profile',
     component: Profile,
     name: 'Profile',
+  },
+  {
+    path: '/register',
+    component: Register,
+    name: 'Register',
   },
 ]
 
