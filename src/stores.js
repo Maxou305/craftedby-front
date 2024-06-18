@@ -54,7 +54,7 @@ export const useProductsStore = defineStore('product', {
   getters: {},
   actions: {
     async fetchProducts() {
-      const { data } = await useFetch('https://fakestoreapi.com/products')
+      const { data } = await useFetch(process.env.BASE_URL + '/products')
         .get()
         .json()
       this.products = data
