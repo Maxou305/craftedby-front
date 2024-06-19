@@ -35,15 +35,15 @@ export const useCartStore = defineStore('cart', {
       )
       if (existingProduct) {
         existingProduct.quantity += quantity
-        save('cart', this.cart)
+        localStorage.setItem('cart', JSON.stringify(this.cart))
       } else {
         this.cart.push({ product, color, matter, size, quantity })
-        save('cart', this.cart)
+        localStorage.setItem('cart', JSON.stringify(this.cart))
       }
     },
     removeFromCart(id) {
       this.cart = [...this.cart.filter((item) => item.product.id !== id)]
-      save('cart', this.cart)
+      localStorage.setItem('cart', JSON.stringify(this.cart))
     },
   },
 })
@@ -116,8 +116,7 @@ export const useUserStore = defineStore('user', {
       })
         .then((res) => res.json())
         .then((json) => {
-          save('token', json.token)
-          console.log('json', json.token)
+          localStorage.setItem('token', json.token)
           this.token = json.token
           this.isAuthenticated = true
           return 'ok'
@@ -136,7 +135,7 @@ export const useUserStore = defineStore('user', {
       })
         .then((res) => res.json())
         .then((json) => {
-          save('token', json.token)
+          localStorage.setItem('token', json.token)
           this.token = json.token
           this.isAuthenticated = true
           return 'ok'
@@ -171,6 +170,7 @@ export const useOrderStore = defineStore('order', {
   state: () => ({
     orderList: [],
     validatedOrderList: [],
+    order: {},
   }),
   getters: {},
   actions: {
@@ -179,8 +179,8 @@ export const useOrderStore = defineStore('order', {
     },
     newOrder(user, creatorCode, reduction) {
       const store = useCartStore()
-      const order = {
-        cart: store.cart,
+      this.order = {
+        products: store.cart,
         price: store.totalPrice,
         isValidated: false,
         user,
@@ -191,25 +191,53 @@ export const useOrderStore = defineStore('order', {
         creatorCode,
         reduction,
       }
-      this.orderList.push(order)
-      save('orderList', this.orderList)
+      this.orderList.push(this.order)
+      localStorage.setItem('order', JSON.stringify(this.order))
+      localStorage.setItem('orderList', JSON.stringify(this.orderList))
     },
     validateOrder(id) {
+      const token = useUserStore().token
       const order = this.orderList.find((order) => order.id === id)
+
       order.isValidated = true
-      this.validatedOrderList.push(order)
-      save('validatedOrderList', this.validatedOrderList)
-      emptyCart()
+      order.products = order.products.map((product) => {
+        return {
+          id: product.product.id,
+          price: product.product.price,
+          color: product.color,
+          matter: product.matter,
+          size: product.size,
+          quantity: product.quantity,
+        }
+      })
+      order.user = {
+        id: order.user.id,
+        username: order.user.username,
+        email: order.user.email,
+      }
+
+      fetch(`${apiUrl}/orders`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(order),
+      })
+        .then((res) => res.json())
+        .then((json) => {
+          console.log(json)
+          emptyCart()
+        })
+        .catch((error) => {
+          console.error('Error: ', error)
+        })
     },
   },
 })
 
-function save(id, item) {
-  localStorage.setItem(id, item)
-}
-
 function emptyCart() {
   const cartStore = useCartStore()
   cartStore.cart = []
-  save('cart', cartStore.cart)
+  localStorage.setItem('cart', JSON.stringify([]))
 }

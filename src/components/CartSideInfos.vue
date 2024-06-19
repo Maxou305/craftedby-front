@@ -40,12 +40,12 @@ function handleClick() {
 
 <template>
   <div
-    class="border bg-seasalt rounded-md text-center p-4 flex flex-col justify-between min-h-96"
+    class="flex min-h-96 flex-col justify-between rounded-md border bg-seasalt p-4 text-center"
   >
-    <div class="gap-4 flex flex-col">
+    <div class="flex flex-col gap-4">
       <h1 class="font-bold">Récapitulatif de votre commande</h1>
       <div>
-        <div v-for="product in props.cart">
+        <div v-for="product in props.cart" :key="product.id">
           <div class="flex justify-between">
             <p>{{ product.product.title }}</p>
             <p class="font-bold">
@@ -74,7 +74,7 @@ function handleClick() {
       <button @click="applyCode" class="btn bg-emerald-300">Appliquer</button>
     </div>
     <div class="flex flex-col gap-2">
-      <p class="font-bold text-title text-end">
+      <p class="text-end text-title font-bold">
         Total :
         {{
           promo === 0 ? props.total : props.total - (props.total * promo) / 100
@@ -83,7 +83,7 @@ function handleClick() {
       </p>
       <button
         v-if="!isPaymentStep"
-        class="btn bg-vermillon text-platinum hover:text-vermillon hover:bg-platinum"
+        class="btn bg-vermillon text-platinum hover:bg-platinum hover:text-vermillon"
         @click="handleClick"
       >
         Commander

@@ -30,11 +30,11 @@ function handleValidateShipment() {
 </script>
 
 <template>
-  <div class="font-nunito m-auto">
-    <table class="border border-collapse bg-seasalt">
+  <div class="m-auto font-nunito">
+    <table class="border-collapse border bg-seasalt">
       <tr class="border">
         <td class="p-4">
-          <h1 class="font-bold text-title">Récapitulatif</h1>
+          <h1 class="text-title font-bold">Récapitulatif</h1>
         </td>
         <td></td>
       </tr>
@@ -54,7 +54,7 @@ function handleValidateShipment() {
         <td></td>
       </tr>
       <tr>
-        <td class="align-text-top p-4">
+        <td class="p-4 align-text-top">
           <label>PAYS DE LIVRAISON </label>
         </td>
         <td class="p-4">
@@ -70,11 +70,11 @@ function handleValidateShipment() {
         </td>
       </tr>
       <tr>
-        <td class="align-text-top p-4">
+        <td class="p-4 align-text-top">
           <label>MODES DE LIVRAISON </label>
         </td>
-        <td class="flex flex-col p-4 gap-2">
-          <div class="flex gap-2 items-center">
+        <td class="flex flex-col gap-2 p-4">
+          <div class="flex items-center gap-2">
             <input
               class="radio"
               type="radio"
@@ -84,7 +84,7 @@ function handleValidateShipment() {
             />
             <label>Boutique - GRATUIT</label>
           </div>
-          <div class="flex gap-2 items-center">
+          <div class="flex items-center gap-2">
             <input
               class="radio"
               type="radio"
@@ -94,7 +94,7 @@ function handleValidateShipment() {
             />
             <label>Livraison en point relais</label>
           </div>
-          <div class="flex gap-2 items-center">
+          <div class="flex items-center gap-2">
             <input
               class="radio"
               type="radio"
@@ -106,22 +106,22 @@ function handleValidateShipment() {
           </div>
         </td>
       </tr>
-      <tr class="p-4 gap-2">
-        <td class="align-text-top p-4">
+      <tr class="gap-2 p-4">
+        <td class="p-4 align-text-top">
           <label>ADRESSE DE LIVRAISON </label>
         </td>
-        <td class="flex flex-col p-4 gap-2">
+        <td class="flex flex-col gap-2 p-4">
           <div class="flex gap-2">
             <input
               type="text"
               class="input input-bordered w-full max-w-xs"
-              :placeholder="user.name.firstname"
+              :placeholder="user.username"
               disabled
             />
             <input
               type="text"
               class="input input-bordered w-full max-w-xs"
-              :placeholder="user.name.lastname"
+              :placeholder="user.username"
               disabled
             />
           </div>
@@ -151,9 +151,9 @@ function handleValidateShipment() {
         </td>
       </tr>
     </table>
-    <div class="text-end mt-4">
+    <div class="mt-4 text-end">
       <button
-        class="btn bg-vermillon text-platinum hover:text-vermillon hover:bg-platinum"
+        class="btn bg-vermillon text-platinum hover:bg-platinum hover:text-vermillon"
         @click="handleValidateShipment"
       >
         Paiement
