@@ -10,6 +10,11 @@ const color = ref('')
 const matter = ref('')
 const size = ref('')
 const quantity = ref(0)
+
+function handleClick() {
+  if (quantity.value === 0) return alert('Veuillez sélectionner une quantité')
+  cart.addToCart(props.product, color, matter, size, quantity)
+}
 </script>
 
 <template>
@@ -26,30 +31,23 @@ const quantity = ref(0)
     </div>
     <h2 class="text-bold font-bold">Couleur :</h2>
     <select v-model="color">
-      <option>rouge</option>
-      <option>vert</option>
-      <option>bleu</option>
+      <option>{{ props.product.color }}</option>
     </select>
     <h2 class="text-bold font-bold">Matière :</h2>
     <select v-model="matter">
-      <option>Tissu</option>
-      <option>Métal</option>
-      <option>Bois</option>
+      <option>{{ props.product.material }}</option>
     </select>
     <h2 class="text-bold font-bold">Taille :</h2>
     <select v-model="size">
-      <option>S</option>
-      <option>M</option>
-      <option>L</option>
-      <option>XL</option>
+      <option>{{ props.product.size }}</option>
     </select>
     <h2 class="text-bold font-bold">Quantité :</h2>
-    <select v-model="quantity">
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-    </select>
+    <input
+      type="number"
+      min="0"
+      :max="props.product.stock"
+      v-model="quantity"
+    />
     <div class="flex justify-between">
       <div class="flex flex-col justify-end">
         <p class="text-bold font-bold">{{ props.product.price }} €</p>
@@ -59,12 +57,13 @@ const quantity = ref(0)
       </div>
       <div class="flex flex-col gap-4 text-center">
         <p>
-          {{ props.product.stock > 0 ? 'En stock !' : 'Plus disponible !' }}
+          {{
+            props.product.stock > 0
+              ? `En stock ! ${props.product.stock} exemplaires restants`
+              : 'Plus disponible !'
+          }}
         </p>
-        <button
-          class="btn bg-vermillon"
-          @click="cart.addToCart(props.product, color, matter, size, quantity)"
-        >
+        <button class="btn bg-vermillon" @click="handleClick">
           Ajouter au panier
         </button>
       </div>
@@ -73,7 +72,8 @@ const quantity = ref(0)
 </template>
 
 <style scoped>
-select {
+select,
+input {
   border: solid 1px black;
   padding: 4px;
   box-shadow: 0 0 5px var(--color-space-cadet);
