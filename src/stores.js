@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia'
 import { useFetch } from '@vueuse/core'
 
+const apiUrl = import.meta.env.VITE_API_URL
+
 export const Reduction = {
   ZOB: 100,
   JB: 0,
@@ -54,13 +56,11 @@ export const useProductsStore = defineStore('product', {
   getters: {},
   actions: {
     async fetchProducts() {
-      const { data } = await useFetch('http://127.0.0.1:8000/api/products')
-        .get()
-        .json()
+      const { data } = await useFetch(`${apiUrl}/products`).get().json()
       this.products = data
     },
     async getById(id) {
-      const response = await fetch(`https://fakestoreapi.com/products/${id}`)
+      const response = await fetch(`${apiUrl}/products/${id}`)
       return await response.json()
     },
     getByCategory(category) {
@@ -82,7 +82,7 @@ export const useUserStore = defineStore('user', {
       if (localStorage.getItem('token') && this.token === null) {
         this.token = localStorage.getItem('token')
       }
-      fetch('http://localhost:8000/api/me', {
+      fetch(`${apiUrl}/me`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${this.token}`,
@@ -103,7 +103,7 @@ export const useUserStore = defineStore('user', {
         })
     },
     register(username, email, password) {
-      return fetch('http://localhost:8000/api/register', {
+      return fetch(`${apiUrl}/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -124,7 +124,7 @@ export const useUserStore = defineStore('user', {
         })
     },
     login(username, password) {
-      return fetch('http://localhost:8000/api/login', {
+      return fetch(`${apiUrl}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
