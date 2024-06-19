@@ -6,11 +6,11 @@ const props = defineProps({
 
 <template>
   <div
-    class="rounded-2xl border p-4 gap-4 flex flex-wrap transition ease-in-out hover:shadow-xl bg-seasalt"
+    class="flex flex-wrap gap-4 rounded-2xl border bg-seasalt p-4 transition ease-in-out hover:shadow-xl"
   >
     <div class="flex w-full items-center justify-around">
       <img
-        class="rounded-2xl h-60 w-auto items-center"
+        class="h-60 w-auto items-center rounded-2xl object-cover"
         :src="props.product.image"
         :alt="props.product.title"
       />
@@ -18,16 +18,16 @@ const props = defineProps({
     <div class="flex flex-col justify-between gap-4">
       <div class="flex flex-wrap gap-4">
         <h2
-          class="font-nunito font-bold text-xl overflow-ellipsis overflow-hidden whitespace-nowrap max-w-[200px]"
+          class="max-w-[200px] overflow-hidden overflow-ellipsis whitespace-nowrap font-nunito text-xl font-bold"
         >
           {{ props.product.title }}
         </h2>
-        <p class="font-nunito overflow-auto max-h-[100px]">
+        <p class="max-h-[100px] overflow-auto font-nunito">
           {{ props.product.description }}
         </p>
       </div>
-      <div class="flex justify-between items-center">
-        <p class="font-nunito font-bold text-xl">{{ props.product.price }} €</p>
+      <div class="flex items-center justify-between">
+        <p class="font-nunito text-xl font-bold">{{ props.product.price }} €</p>
         <button
           @click="$router.push(`/product/${props.product.id}`)"
           class="btn bg-vermillon"
