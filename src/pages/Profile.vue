@@ -13,7 +13,9 @@ orderStore.getByUserId(user.id).then((res) => (orders.value = res))
 </script>
 
 <template>
-  <div class="m-auto my-4 mt-24 flex w-[1440px] flex-wrap gap-4 font-nunito">
+  <div
+    class="m-auto my-4 mt-24 flex max-w-[1440px] flex-wrap gap-4 p-4 font-nunito"
+  >
     <div class="text-center">
       <h1 class="text-title">Profile</h1>
       <h1>Username : {{ user.username }}</h1>
