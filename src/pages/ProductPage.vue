@@ -18,10 +18,10 @@ store.getById(route.params.id).then((res) => (product.value = res))
 <template>
   <div
     v-if="product"
-    class="mt-24 w-[1440px] m-auto flex flex-wrap gap-4 my-4 font-nunito"
+    class="m-auto my-4 mt-24 flex max-w-[1440px] flex-wrap gap-4 p-4 font-nunito"
   >
     <img class="w-80" :src="product.image" alt="" />
-    <div class="grid grid-cols-[2fr,1fr] gap-2 m-auto">
+    <div class="m-auto grid grid-cols-1 gap-2 lg:grid-cols-[2fr,1fr]">
       <div class="flex flex-col gap-2">
         <div class="flex justify-between gap-2">
           <h1 class="text-title font-bold">{{ product.title }}</h1>
