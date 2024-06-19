@@ -171,11 +171,18 @@ export const useOrderStore = defineStore('order', {
     orderList: [],
     validatedOrderList: [],
     order: {},
+    token: useUserStore().token,
   }),
   getters: {},
   actions: {
     getByUserId(id) {
-      return this.orderList.find((order) => order.user.id === id)
+      return fetch(`${apiUrl}/orders/user/${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.token}`,
+        },
+      }).then((res) => res.json())
     },
     newOrder(user, creatorCode, reduction) {
       const store = useCartStore()

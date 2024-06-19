@@ -1,9 +1,15 @@
 <script setup>
 import { useOrderStore, useUserStore } from '@/stores.js'
+import { ref } from 'vue'
 
 const userStore = useUserStore()
 const orderStore = useOrderStore()
+
 const user = userStore.user
+const orders = ref(null)
+
+console.log('user', user)
+orderStore.getByUserId(user.id).then((res) => (orders.value = res))
 </script>
 
 <template>
@@ -14,7 +20,7 @@ const user = userStore.user
       <h1>Id : {{ user.id }}</h1>
       <h1>Email : {{ user.email }}</h1>
       <h1 class="text-title">Commandes</h1>
-      <!--      <h1>{{ orderStore.getByUserId(user.id) }}</h1>-->
+      <h1>{{ orders }}</h1>
     </div>
   </div>
 </template>
