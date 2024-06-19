@@ -63,7 +63,11 @@ function handleClick() {
               : 'Plus disponible !'
           }}
         </p>
-        <button class="btn bg-vermillon" @click="handleClick">
+        <button
+          class="btn bg-vermillon"
+          @click="handleClick"
+          :disabled="!props.product.stock"
+        >
           Ajouter au panier
         </button>
       </div>
