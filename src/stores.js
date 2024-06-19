@@ -143,9 +143,25 @@ export const useUserStore = defineStore('user', {
         })
     },
     logout() {
-      this.user = null
-      this.isAuthenticated = false
-      localStorage.removeItem('token')
+      return fetch(`${apiUrl}/logout`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${this.token}`,
+          'Content-Type': 'application/json',
+        },
+      })
+        .then((res) => res.json())
+        .then((json) => {
+          console.log('json', json)
+          this.user = null
+          this.isAuthenticated = false
+          this.token = null
+          localStorage.removeItem('token')
+          return 'ok'
+        })
+        .catch((error) => {
+          console.error('Error: ', error)
+        })
     },
   },
 })
