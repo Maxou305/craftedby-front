@@ -19,11 +19,12 @@ const confidentData = [
 </script>
 
 <template>
-  <div class="flex h-[250px] items-center justify-around confiance">
-    <div class="w-[1440px] flex justify-around">
+  <div class="confiance flex items-center justify-around py-16">
+    <div class="flex max-w-[1440px] flex-col justify-around gap-10 lg:flex-row">
       <div
-        class="w-80 flex flex-wrap text-center justify-center gap-4"
+        class="flex w-80 flex-wrap justify-center text-center lg:gap-4"
         v-for="data in confidentData"
+        :key="data.title"
       >
         <div class="flex gap-4">
           <h3>{{ data.title }}</h3>
