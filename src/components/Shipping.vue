@@ -19,12 +19,11 @@ const shippingCountry = ref('')
 const shippingMode = ref('')
 
 function handleValidateShipment() {
-  orderStore.getByUserId(user.id).shippingCountry = shippingCountry.value
-  orderStore.getByUserId(user.id).shippingMode = shippingMode.value
-  orderStore.getByUserId(user.id).shippingPrice =
-    ShippingPrice[shippingMode.value]
-
-  console.log('maj order ', orderStore.orderList[0])
+  orderStore.update(orderStore.order, {
+    shippingCountry: shippingCountry.value,
+    shippingMode: shippingMode.value,
+    shippingPrice: ShippingPrice[shippingMode.value],
+  })
   props.handleNextStep()
 }
 </script>
@@ -155,6 +154,7 @@ function handleValidateShipment() {
       <button
         class="btn bg-vermillon text-platinum hover:bg-platinum hover:text-vermillon"
         @click="handleValidateShipment"
+        :disabled="!shippingCountry || !shippingMode"
       >
         Paiement
       </button>

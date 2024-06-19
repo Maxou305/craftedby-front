@@ -5,10 +5,11 @@ const props = defineProps({
 </script>
 
 <template>
-  <ul class="steps steps-vertical lg:steps-horizontal m-auto">
+  <ul class="steps steps-horizontal m-auto lg:steps-horizontal">
     <li
       :class="{ step: true, 'step-primary': step.checked }"
       v-for="step in props.steps"
+      :key="step.name"
     >
       {{ step.name }}
     </li>

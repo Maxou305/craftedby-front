@@ -1,32 +1,31 @@
 <script setup>
 import CartSideInfos from '@/components/CartSideInfos.vue'
-import { useOrderStore, useUserStore } from '@/stores.js'
+import { useOrderStore } from '@/stores.js'
+import { ref } from 'vue'
 
 const props = defineProps({
   handleNextStep: Function,
 })
 
 const orderStore = useOrderStore()
-const userStore = useUserStore()
 
-const user = userStore.user
-const order = orderStore.getByUserId(user.id)
+const order = orderStore.order
+const isValidated = ref(false)
 
 const total = order.price + order.shippingPrice
 
 function handleClick() {
   orderStore.validateOrder(order.id)
-  console.log('final', orderStore.getByUserId(user.id))
   props.handleNextStep()
 }
 </script>
 
 <template>
-  <div class="grid grid-cols-[2fr,1fr] gap-2">
+  <div class="grid grid-cols-1 gap-2 lg:grid-cols-[2fr,1fr]">
     <div
-      class="h-auto border bg-seasalt rounded-md p-6 flex flex-col gap-4 border-platinum font-nunito"
+      class="flex h-auto flex-col gap-4 rounded-md border border-platinum bg-seasalt p-6 font-nunito"
     >
-      <h1 class="font-bold text-title">Paiement</h1>
+      <h1 class="text-title font-bold">Paiement</h1>
       <label>Nom sur la carte</label>
       <input type="text" class="input input-bordered w-auto" />
       <label>Numéro de carte</label>
@@ -41,8 +40,8 @@ function handleClick() {
           <input type="text" class="input input-bordered w-full max-w-xs" />
         </div>
       </div>
-      <div class="flex gap-4 items-center">
-        <input type="checkbox" checked="checked" class="checkbox" />
+      <div class="flex items-center gap-4">
+        <input type="checkbox" class="checkbox" v-model="isValidated" />
         <p>
           J'accepte les conditions d'achats CRAFTEDBY, disponibles sur le
           <a
@@ -54,14 +53,15 @@ function handleClick() {
         </p>
       </div>
       <button
-        class="btn bg-vermillon text-platinum hover:text-vermillon hover:bg-platinum"
+        class="btn bg-vermillon text-platinum hover:bg-platinum hover:text-vermillon"
         @click="handleClick"
+        :disabled="!isValidated"
       >
         Paiement
       </button>
     </div>
     <CartSideInfos
-      :cart="order.cart"
+      :cart="order.products"
       :total="total"
       :handleNextStep="handleNextStep"
       :isPaymentStep="true"

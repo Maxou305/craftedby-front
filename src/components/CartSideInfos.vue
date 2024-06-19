@@ -47,7 +47,7 @@ function handleClick() {
       <div>
         <div v-for="product in props.cart" :key="product.id">
           <div class="flex justify-between">
-            <p>{{ product.product.title }}</p>
+            <p>{{ product.product.name }}</p>
             <p class="font-bold">
               {{ product.product.price * product.quantity }} €
             </p>

@@ -202,6 +202,10 @@ export const useOrderStore = defineStore('order', {
       localStorage.setItem('order', JSON.stringify(this.order))
       localStorage.setItem('orderList', JSON.stringify(this.orderList))
     },
+    update(order, values) {
+      this.order = { ...order, ...values }
+      console.log('prout', this.order)
+    },
     validateOrder(id) {
       const token = useUserStore().token
       const order = this.orderList.find((order) => order.id === id)

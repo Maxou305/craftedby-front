@@ -35,13 +35,13 @@ function handleNextStep() {
 <template>
   <div
     v-if="cartStore.cart.length === 0 && actualStep !== 4"
-    class="mt-24 w-[1440px] m-auto flex flex-col justify-center gap-4 my-4"
+    class="m-auto my-4 mt-24 flex max-w-[1440px] flex-col justify-center gap-4 p-4"
   >
     <h1 class="text-center">Panier vide</h1>
     <div class="text-center">
       <router-link to="/">
         <button
-          class="btn bg-vermillon text-platinum hover:text-vermillon hover:bg-platinum"
+          class="btn bg-vermillon text-platinum hover:bg-platinum hover:text-vermillon"
         >
           Voir les produits
         </button>
@@ -50,10 +50,13 @@ function handleNextStep() {
   </div>
   <div
     v-else
-    class="mt-24 w-[1440px] m-auto flex flex-col flex-wrap gap-4 my-4"
+    class="m-auto my-4 mt-24 flex max-w-[1440px] flex-col flex-wrap gap-4 p-4"
   >
     <CartSteps :steps="steps" />
-    <div class="grid grid-cols-[2fr,1fr] gap-2" v-if="actualStep === 0">
+    <div
+      class="grid grid-cols-1 gap-2 lg:grid-cols-[2fr,1fr]"
+      v-if="actualStep === 0"
+    >
       <div class="flex flex-col">
         <CartProductList :cart="cartStore.cart" />
         <CartRecommendations />
