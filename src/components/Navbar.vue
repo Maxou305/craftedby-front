@@ -72,7 +72,10 @@ function handleLogout() {
             />
           </button>
 
-          <div class="dropdown dropdown-hover" v-if="userStore.isAuthenticated">
+          <div
+            class="dropdown dropdown-end dropdown-hover"
+            v-if="userStore.isAuthenticated"
+          >
             <button>
               <img
                 src="../assets/images/icons/sign-in-icon.svg"
