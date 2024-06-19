@@ -23,14 +23,14 @@ function handleLogout() {
 </script>
 
 <template>
-  <nav class="fixed w-full z-50 top-0 bg-space-cadet font-nunito">
+  <nav class="fixed top-0 z-50 w-full bg-space-cadet font-nunito">
     <div>
-      <div class="flex justify-between flex-row p-4 w-[1440px] m-auto z-50">
+      <div class="z-50 m-auto flex max-w-[1440px] flex-row justify-between p-4">
         <RouterLink to="/" class="flex flex-wrap">
           <img class="w-32" src="../assets/images/logo.svg" alt="logo" />
         </RouterLink>
-        <div class="flex rounded-2xl search">
-          <select class="rounded-l-2xl search w-16">
+        <div class="search hidden rounded-2xl xl:flex">
+          <select class="search w-16 rounded-l-2xl">
             <option selected></option>
             <option>1</option>
             <option>2</option>
@@ -41,7 +41,7 @@ function handleLogout() {
           </select>
           <input type="search" placeholder="Search..." class="px-4 py-2" />
           <div
-            class="rounded-l-2xl search flex content-center flex-wrap px-4 rounded-r-2xl"
+            class="search flex flex-wrap content-center rounded-l-2xl rounded-r-2xl px-4"
           >
             <RouterLink to="/">
               <img
@@ -52,7 +52,7 @@ function handleLogout() {
             </RouterLink>
           </div>
         </div>
-        <div class="flex gap-6 content-center flex-wrap rounded-r-2xl">
+        <div class="flex flex-wrap content-center gap-6 rounded-r-2xl">
           <RouterLink to="/register"
             ><img
               class="icon"
@@ -82,7 +82,7 @@ function handleLogout() {
             </button>
             <ul
               tabindex="0"
-              class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+              class="menu dropdown-content z-[1] w-52 rounded-box bg-base-100 p-2 shadow"
             >
               <li><router-link to="/profile">Profile</router-link></li>
               <li>
@@ -92,7 +92,7 @@ function handleLogout() {
           </div>
 
           <div class="indicator">
-            <span class="indicator-item badge badge-secondary">{{
+            <span class="badge indicator-item badge-secondary">{{
               cartStore.cart.length
             }}</span>
             <RouterLink to="/cart"
@@ -103,15 +103,15 @@ function handleLogout() {
             /></RouterLink>
           </div>
           <dialog id="my_modal_2" class="modal">
-            <div class="modal-box bg-snow text-space-cadet">
-              <h3 class="font-bold text-lg">Connexion</h3>
+            <div class="bg-snow modal-box text-space-cadet">
+              <h3 class="text-lg font-bold">Connexion</h3>
               <p class="py-4">username</p>
               <label class="input input-bordered flex items-center gap-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 16 16"
                   fill="currentColor"
-                  class="w-4 h-4 opacity-70"
+                  class="h-4 w-4 opacity-70"
                 >
                   <path
                     d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z"
@@ -130,7 +130,7 @@ function handleLogout() {
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 16 16"
                   fill="currentColor"
-                  class="w-4 h-4 opacity-70"
+                  class="h-4 w-4 opacity-70"
                 >
                   <path
                     fill-rule="evenodd"
@@ -145,7 +145,7 @@ function handleLogout() {
                   v-model="password"
                 />
               </label>
-              <div class="text-center mt-4">
+              <div class="mt-4 text-center">
                 <button class="btn bg-vermillon" @click="handleLogin">
                   Connexion
                 </button>
