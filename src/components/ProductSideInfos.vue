@@ -14,15 +14,15 @@ const quantity = ref(0)
 
 <template>
   <div
-    class="border bg-seasalt rounded-2xl p-6 flex flex-col gap-4 border-platinum"
+    class="flex flex-col gap-4 rounded-2xl border border-platinum bg-seasalt p-6"
   >
-    <div class="flex gap-4 justify-center items-center">
+    <div class="flex items-center justify-center gap-4">
       <div class="flex items-center gap-2">
         <img src="../assets/images/icons/star-icon.svg" alt="star" />
-        <p>{{ props.product.rating.rate }}/5</p>
+        <!--        <p>{{ props.product.rating.rate }}/5</p>-->
       </div>
 
-      <p>{{ props.product.rating.count }} avis</p>
+      <!--      <p>{{ props.product.rating.count }} avis</p>-->
     </div>
     <h2 class="text-bold font-bold">Couleur :</h2>
     <select v-model="color">
@@ -53,11 +53,11 @@ const quantity = ref(0)
     <div class="flex justify-between">
       <div class="flex flex-col justify-end">
         <p class="text-bold font-bold">{{ props.product.price }} €</p>
-        <p class="text-sm line-through text-platinum">
+        <p class="text-sm text-platinum line-through">
           {{ props.product.price }} €
         </p>
       </div>
-      <div class="flex flex-col text-center gap-4">
+      <div class="flex flex-col gap-4 text-center">
         <p>
           {{ props.product.stock > 0 ? 'En stock !' : 'Plus disponible !' }}
         </p>
