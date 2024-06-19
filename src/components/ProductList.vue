@@ -10,8 +10,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <h1 class="font-bold text-3xl">Meilleures ventes</h1>
-  <div class="grid grid-cols-5 gap-2">
+  <h1 class="text-3xl font-bold">Meilleures ventes</h1>
+  <div
+    class="xs:grid-cols-1 grid grid-cols-3 gap-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5"
+  >
     <ProductCard
       v-for="product in store.products"
       :key="product.id"
