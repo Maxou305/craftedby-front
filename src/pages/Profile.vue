@@ -41,9 +41,13 @@ function handleClick() {
       <div class="flex flex-col items-center gap-4">
         <h1 class="text-center text-title">Profil</h1>
         <div class="card bg-base-100 shadow-xl lg:card-side">
-          <figure>
+          <figure class="max-w-screen-xs object-cover">
             <img
-              src="https://img.daisyui.com/images/stock/photo-1494232410401-ad00d5433cfa.jpg"
+              :src="
+                user.profile_picture
+                  ? user.profile_picture
+                  : 'https://kultt.fr/wp-content/uploads/2022/09/RickAstley-ad2022.jpg'
+              "
               alt="Album"
             />
           </figure>
@@ -60,7 +64,6 @@ function handleClick() {
                 {{ user.payment_address ? user.payment_address : '' }}
               </p>
               <p>Tel : {{ user.phone_number ? user.phone_number : '' }}</p>
-              <p>Id : {{ user.id }}</p>
               <p>Email : {{ user.email }}</p>
             </div>
 
@@ -115,22 +118,30 @@ function handleClick() {
                   class="grow"
                   :placeholder="user.email"
                   @change="newValues.email = $event.target.value"
+                /> </label
+              ><label class="input input-bordered flex items-center gap-2">
+                Avatar
+                <input
+                  type="text"
+                  class="grow"
+                  :placeholder="user.profile_picture"
+                  @change="newValues.profile_picture = $event.target.value"
                 />
               </label>
             </div>
           </div>
-          <div class="flex w-full justify-around pb-4">
-            <button @click="handleClick" class="btn w-auto bg-emerald-300">
-              {{ isEditing ? 'Enregistrer' : 'Modifier' }}
-            </button>
-            <button
-              @click="isEditing = !isEditing"
-              v-if="isEditing"
-              class="btn w-auto bg-vermillon"
-            >
-              Annuler
-            </button>
-          </div>
+        </div>
+        <div class="flex w-full justify-around pb-4">
+          <button @click="handleClick" class="btn w-auto bg-emerald-300">
+            {{ isEditing ? 'Enregistrer' : 'Modifier' }}
+          </button>
+          <button
+            @click="isEditing = !isEditing"
+            v-if="isEditing"
+            class="btn w-auto bg-vermillon"
+          >
+            Annuler
+          </button>
         </div>
       </div>
       <div class="text-center">
