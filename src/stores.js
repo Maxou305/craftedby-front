@@ -82,7 +82,7 @@ export const useUserStore = defineStore('user', {
       if (localStorage.getItem('token') && this.token === null) {
         this.token = localStorage.getItem('token')
       }
-      fetch(`${apiUrl}/me`, {
+      return fetch(`${apiUrl}/me`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${this.token}`,
@@ -156,6 +156,24 @@ export const useUserStore = defineStore('user', {
           this.isAuthenticated = false
           this.token = null
           localStorage.removeItem('token')
+          return 'ok'
+        })
+        .catch((error) => {
+          console.error('Error: ', error)
+        })
+    },
+    update(user, newValues) {
+      return fetch(`${apiUrl}/users/${user.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.token}`,
+        },
+        body: JSON.stringify(newValues),
+      })
+        .then((res) => res.json())
+        .then((json) => {
+          this.user = json
           return 'ok'
         })
         .catch((error) => {
