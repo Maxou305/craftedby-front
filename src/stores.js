@@ -168,8 +168,6 @@ export const useUserStore = defineStore('user', {
 // store used to handle orders
 export const useOrderStore = defineStore('order', {
   state: () => ({
-    orderList: [],
-    validatedOrderList: [],
     order: {},
     token: useUserStore().token,
   }),
@@ -189,7 +187,7 @@ export const useOrderStore = defineStore('order', {
       this.order = {
         products: store.cart,
         price: store.totalPrice,
-        isValidated: false,
+        validatedStatus: false,
         user,
         shippingCountry: null,
         shippingMode: null,
@@ -198,19 +196,15 @@ export const useOrderStore = defineStore('order', {
         creatorCode,
         reduction,
       }
-      this.orderList.push(this.order)
       localStorage.setItem('order', JSON.stringify(this.order))
-      localStorage.setItem('orderList', JSON.stringify(this.orderList))
     },
     update(order, values) {
       this.order = { ...order, ...values }
-      console.log('prout', this.order)
     },
-    validateOrder(id) {
+    validateOrder(order) {
       const token = useUserStore().token
-      const order = this.orderList.find((order) => order.id === id)
 
-      order.isValidated = true
+      order.validatedStatus = true
       order.products = order.products.map((product) => {
         return {
           id: product.product.id,
@@ -237,7 +231,7 @@ export const useOrderStore = defineStore('order', {
       })
         .then((res) => res.json())
         .then((json) => {
-          console.log(json)
+          console.log('final order', json)
           emptyCart()
         })
         .catch((error) => {

@@ -15,7 +15,7 @@ const isValidated = ref(false)
 const total = order.price + order.shippingPrice
 
 function handleClick() {
-  orderStore.validateOrder(order.id)
+  orderStore.validateOrder(order)
   props.handleNextStep()
 }
 </script>
