@@ -66,7 +66,7 @@ function handleClick() {
         <button
           class="btn bg-vermillon"
           @click="handleClick"
-          :disabled="!props.product.stock"
+          :disabled="!props.product.stock || quantity === 0"
         >
           Ajouter au panier
         </button>
