@@ -11,14 +11,14 @@ const username = ref('')
 const password = ref('')
 
 function handleLogin() {
-  userStore.login(username.value, password.value).then((res) => {
-    document.getElementById('my_modal_2').open = false
+  userStore.login(username.value, password.value).then(() => {
+    window.location.reload()
   })
 }
 function handleLogout() {
-  userStore.logout()
-  router.push('/')
-  window.location.reload()
+  userStore.logout().then(() => {
+    router.push('/')
+  })
 }
 </script>
 
