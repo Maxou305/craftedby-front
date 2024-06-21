@@ -13,7 +13,10 @@ const quantity = ref(0)
 
 function handleClick() {
   if (quantity.value === 0) return alert('Veuillez sélectionner une quantité')
-  cart.addToCart(props.product, color, matter, size, quantity)
+  const q = quantity.value
+  cart.addToCart(props.product, color, matter, size, q)
+  alert('Produit ajouté au panier !')
+  quantity.value = 0
 }
 </script>
 
