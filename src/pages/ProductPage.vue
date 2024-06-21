@@ -5,6 +5,7 @@ import ProductDescription from '@/components/ProductDescription.vue'
 import ProductSideInfos from '@/components/ProductSideInfos.vue'
 import { useProductsStore } from '@/stores.js'
 import { ref } from 'vue'
+import GoToShopButton from '@/components/GoToShopButton.vue'
 
 const route = useRoute()
 
@@ -12,7 +13,10 @@ const store = useProductsStore()
 
 const product = ref(null)
 
-store.getById(route.params.id).then((res) => (product.value = res))
+store.getById(route.params.id).then((res) => {
+  product.value = res
+  console.log(product.value)
+})
 </script>
 
 <template>
@@ -24,13 +28,26 @@ store.getById(route.params.id).then((res) => (product.value = res))
     <div class="m-auto grid grid-cols-1 gap-2 lg:grid-cols-[2fr,1fr]">
       <div class="flex flex-col gap-2">
         <div class="flex justify-between gap-2">
-          <h1 class="text-title font-bold">{{ product.title }}</h1>
-          <ShareButton />
+          <h1 class="text-title font-bold">{{ product.name }}</h1>
+          <div class="flex gap-2">
+            <!--             TODO make only one button-->
+            <GoToShopButton
+              :click="
+                () => {
+                  $router.push(`/shop/${product.shop_id}`)
+                }
+              "
+            />
+            <ShareButton />
+          </div>
+
+          <!--          <button @click="$router.push(`/shop/${product.shop_id}`)">-->
+          <!--            GOT TO SHOP-->
+          <!--          </button>-->
         </div>
         <ProductDescription :description="product.description" />
       </div>
       <ProductSideInfos :product="product" />
-      <!--  // need to update when connect to laravel back-->
     </div>
   </div>
 </template>

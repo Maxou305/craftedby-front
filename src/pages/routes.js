@@ -4,6 +4,7 @@ import ProductPage from '@/pages/ProductPage.vue'
 import Cart from '@/pages/Cart.vue'
 import Profile from '@/pages/Profile.vue'
 import Register from '@/pages/Register.vue'
+import Shop from '@/pages/Shop.vue'
 
 const routes = [
   {
@@ -31,6 +32,11 @@ const routes = [
     path: '/register',
     component: Register,
     name: 'Register',
+  },
+  {
+    path: '/shop/:id',
+    component: Shop,
+    name: 'Shop',
   },
 ]
 
