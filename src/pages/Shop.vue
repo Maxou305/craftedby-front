@@ -26,17 +26,8 @@ onMounted(async () => {
     <img class="object-cover" :src="shop.logo" alt="logo" />
     <h2 class="text-center text-bold font-bold">A propos</h2>
     <p>{{ shop.biography }}</p>
+    <!--    TODO Add team card-->
     <h2 class="text-center text-bold font-bold">L'équipe</h2>
-    <!--    "user": {-->
-    <!--    "id": "9c528f6c-f1d3-44b8-8f9f-69b625f5cc19",-->
-    <!--    "username": "sirgunal38",-->
-    <!--    "name": "Maxou&Gunal",-->
-    <!--    "email": "monseigneur@test.com",-->
-    <!--    "payment_address": null,-->
-    <!--    "shipping_address": null,-->
-    <!--    "phone_number": null,-->
-    <!--    "profile_picture": "https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/full/088_f2.png"-->
-    <!--    }-->
     <div v-if="shop.user">
       <p>username : {{ shop.user.name }}</p>
       <p>email : {{ shop.user.name }}</p>
