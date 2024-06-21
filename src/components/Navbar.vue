@@ -53,6 +53,7 @@ function handleLogout() {
           </div>
         </div>
         <div class="flex flex-wrap content-center gap-6 rounded-r-2xl">
+          <!--         TODO change icon for register & block access when authenticated-->
           <RouterLink to="/register"
             ><img
               class="icon"
