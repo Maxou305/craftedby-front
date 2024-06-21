@@ -11,6 +11,8 @@ export const Reduction = {
   GUNAL: 13,
 }
 
+// TODO dispatch stores in different files
+
 //store to handle the cart. Every action will save the cart in the local storage
 export const useCartStore = defineStore('cart', {
   state: () => ({
