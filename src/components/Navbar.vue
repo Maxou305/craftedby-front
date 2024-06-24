@@ -2,15 +2,19 @@
 import { useCartStore, useUserStore } from '@/stores.js'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import Loader from '@/components/Loader.vue'
 
 const cartStore = useCartStore()
 const userStore = useUserStore()
 const router = useRouter()
 
+const isTryingToConnect = ref(false)
+
 const username = ref('')
 const password = ref('')
 
 function handleLogin() {
+  isTryingToConnect.value = !isTryingToConnect.value
   userStore.login(username.value, password.value).then(() => {
     window.location.reload()
   })
@@ -150,7 +154,8 @@ function handleLogout() {
               </label>
               <div class="mt-4 text-center">
                 <button class="btn bg-vermillon" @click="handleLogin">
-                  Connexion
+                  <span v-if="!isTryingToConnect">Connexion</span>
+                  <Loader v-else />
                 </button>
               </div>
             </div>
