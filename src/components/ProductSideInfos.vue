@@ -1,6 +1,7 @@
 <script setup>
 import { useCartStore } from '@/stores.js'
 import { ref } from 'vue'
+import Toaster from '@/components/Toaster.vue'
 
 const props = defineProps({
   product: {},
@@ -11,12 +12,20 @@ const matter = ref('')
 const size = ref('')
 const quantity = ref(0)
 
+const productAdded = ref(false)
+
 function handleClick() {
-  if (quantity.value === 0) return alert('Veuillez sélectionner une quantité')
   const q = quantity.value
   cart.addToCart(props.product, color, matter, size, q)
-  alert('Produit ajouté au panier !')
+  displayToaster('Produit ajouté au panier !')
   quantity.value = 0
+}
+
+function displayToaster() {
+  productAdded.value = true
+  setTimeout(() => {
+    productAdded.value = false
+  }, 3000)
 }
 </script>
 
@@ -24,6 +33,7 @@ function handleClick() {
   <div
     class="flex flex-col gap-4 rounded-2xl border border-platinum bg-seasalt p-6"
   >
+    <Toaster v-if="productAdded" :message="'Produit ajouté au panier !'" />
     <div class="flex items-center justify-center gap-4">
       <div class="flex items-center gap-2">
         <img src="../assets/images/icons/star-icon.svg" alt="star" />
