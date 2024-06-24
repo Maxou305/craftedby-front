@@ -123,6 +123,9 @@ export const useUserStore = defineStore('user', {
           this.isAuthenticated = true
           return json
         })
+        .catch((error) => {
+          console.error('Error: ', error)
+        })
     },
     login(username, password) {
       return fetch(`${apiUrl}/login`, {
