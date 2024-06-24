@@ -39,15 +39,17 @@ export const useShopStore = defineStore('shop', {
     },
     newShop(newShop) {
       const token = useUserStore().token
+      console.log('token', token)
       return fetch(`${apiUrl}/shops`, {
         method: 'POST',
-        body: newShop,
+        body: JSON.stringify(newShop),
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
       })
         .then((res) => {
+          console.log('res', res)
           return res.json()
         })
         .then((json) => console.log('shop', json))

@@ -25,11 +25,9 @@ onMounted(() => {
     if (user.value) {
       orderStore.getByUserId(user.value.id).then((res) => {
         orders.value = res
-        console.log('userzofjozdhjfr', res)
       })
       shopStore.getShopByUserId(user.value.id).then((res) => {
         shop.value = res
-        console.log('shop', res)
       })
     }
   })
@@ -53,8 +51,10 @@ function handleCreateShop() {
 }
 
 function handleValidateCreationShop() {
+  console.log('newshop', newShop.value)
   shopStore.newShop(newShop.value).then(() => {
     alert('Le shop est créé !')
+    window.location.reload()
   })
 }
 </script>
