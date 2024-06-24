@@ -12,10 +12,17 @@ const isTryingToConnect = ref(false)
 
 const username = ref('')
 const password = ref('')
+const loginErrorMessage = ref('')
 
 function handleLogin() {
   isTryingToConnect.value = !isTryingToConnect.value
-  userStore.login(username.value, password.value).then(() => {
+  loginErrorMessage.value = null
+  userStore.login(username.value, password.value).then((res) => {
+    if (res.message) {
+      loginErrorMessage.value = res.message
+      isTryingToConnect.value = false
+      return
+    }
     window.location.reload()
   })
 }
@@ -152,6 +159,28 @@ function handleLogout() {
                   v-model="password"
                 />
               </label>
+
+              <div
+                v-if="loginErrorMessage"
+                role="alert"
+                class="alert alert-error mt-2"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6 shrink-0 stroke-current"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                <span>{{ loginErrorMessage }}</span>
+              </div>
+
               <div class="mt-4 text-center">
                 <button class="btn bg-vermillon" @click="handleLogin">
                   <span v-if="!isTryingToConnect">Connexion</span>

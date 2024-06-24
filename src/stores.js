@@ -121,7 +121,7 @@ export const useUserStore = defineStore('user', {
           localStorage.setItem('token', json.token)
           this.token = json.token
           this.isAuthenticated = true
-          return 'ok'
+          return json
         })
     },
     login(username, password) {
@@ -140,7 +140,10 @@ export const useUserStore = defineStore('user', {
           localStorage.setItem('token', json.token)
           this.token = json.token
           this.isAuthenticated = true
-          return 'ok'
+          return json
+        })
+        .catch((error) => {
+          console.error('Error: ', error)
         })
     },
     logout() {
@@ -153,12 +156,11 @@ export const useUserStore = defineStore('user', {
       })
         .then((res) => res.json())
         .then((json) => {
-          console.log('json', json)
           this.user = null
           this.isAuthenticated = false
           this.token = null
           localStorage.removeItem('token')
-          return 'ok'
+          return json
         })
         .catch((error) => {
           console.error('Error: ', error)
@@ -176,7 +178,7 @@ export const useUserStore = defineStore('user', {
         .then((res) => res.json())
         .then((json) => {
           this.user = json
-          return 'ok'
+          return json
         })
         .catch((error) => {
           console.error('Error: ', error)
