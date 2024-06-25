@@ -5,7 +5,7 @@ import { useCartStore, useUserStore } from '@/stores.js'
 
 const userStore = useUserStore()
 const cartStore = useCartStore()
-
+// TODO change name setCart and refacto stores
 userStore.getAuthUser()
 cartStore.setCart()
 </script>
@@ -14,4 +14,5 @@ cartStore.setCart()
   <Navbar />
   <RouterView />
   <Footer />
+  <!--  TODO Refacto single name component-->
 </template>

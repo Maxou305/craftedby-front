@@ -59,7 +59,7 @@ export const useProductsStore = defineStore('product', {
   actions: {
     async fetchProducts() {
       const { data } = await useFetch(`${apiUrl}/products`).get().json()
-      this.products = data
+      return (this.products = data)
     },
     async getById(id) {
       const response = await fetch(`${apiUrl}/products/${id}`)

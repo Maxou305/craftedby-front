@@ -3,6 +3,7 @@ import { useOrderStore, useUserStore } from '@/stores.js'
 import { onMounted, ref } from 'vue'
 import { formatDate } from '../utils.js'
 import { useShopStore } from '@/stores/shopStore.js'
+import Loader from '@/components/Loader.vue'
 
 const userStore = useUserStore()
 const orderStore = useOrderStore()
@@ -35,7 +36,7 @@ onMounted(() => {
   isLoading.value = false
 })
 
-function handleClick() {
+function handleEditProfile() {
   isEditingProfile.value = !isEditingProfile.value
   if (!isEditingProfile.value) {
     userStore.update(user.value, newValues.value).then(() => {
@@ -46,12 +47,9 @@ function handleClick() {
   }
 }
 
-function handleCreateShop() {
-  isCreatingShop.value = true
-}
+function handleEditShop(key) {}
 
-function handleValidateCreationShop() {
-  console.log('newshop', newShop.value)
+function handleCreateShop() {
   shopStore.newShop(newShop.value).then(() => {
     alert('Le shop est créé !')
     window.location.reload()
@@ -156,7 +154,7 @@ function handleValidateCreationShop() {
           </div>
         </div>
         <div class="flex w-full justify-around pb-4">
-          <button @click="handleClick" class="btn w-auto bg-emerald-300">
+          <button @click="handleEditProfile" class="btn w-auto bg-emerald-300">
             {{ isEditingProfile ? 'Enregistrer' : 'Modifier' }}
           </button>
           <button
@@ -170,7 +168,7 @@ function handleValidateCreationShop() {
       </div>
       <div class="flex flex-col gap-4 text-center">
         <h1 class="text-title">Commandes</h1>
-        <table class="table text-center">
+        <table v-if="orders" class="table text-center">
           <thead>
             <tr>
               <th>N°</th>
@@ -200,12 +198,13 @@ function handleValidateCreationShop() {
       <div class="flex flex-col items-center gap-4 text-center">
         <h1 class="text-title">Mon shop</h1>
         <button
-          @click="handleCreateShop"
+          @click="isCreatingShop = !isCreatingShop"
           v-if="!shop && !isCreatingShop"
           class="btn w-auto max-w-80 bg-vermillon"
         >
           Créer mon shop
         </button>
+        <Loader v-if="!shop" />
         <div v-if="shop">
           <table class="table text-center">
             <thead>
@@ -221,7 +220,7 @@ function handleValidateCreationShop() {
                 <td>{{ value }}</td>
                 <!--                TODO Add edit system-->
                 <td>
-                  <button @click="isEditingShop = !isEditingShop">
+                  <button @click="handleEditShop(key)">
                     <img
                       src="../assets/images/icons/edit-icon.svg"
                       alt="edit icon"
@@ -266,7 +265,7 @@ function handleValidateCreationShop() {
             />
             <div class="flex w-full justify-around pb-4">
               <button
-                @click="handleValidateCreationShop"
+                @click="handleCreateShop"
                 class="btn w-auto bg-emerald-300"
               >
                 Valider
