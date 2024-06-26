@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '@/pages/Home.vue'
-import ProductPage from '@/pages/ProductPage.vue'
-import Cart from '@/pages/Cart.vue'
-import Profile from '@/pages/Profile.vue'
-import Register from '@/pages/Register.vue'
-import Shop from '@/pages/Shop.vue'
+import Home from '@/pages/HomeView.vue'
+import ProductPage from '@/pages/ProductView.vue'
+import Cart from '@/pages/CartView.vue'
+import Profile from '@/pages/ProfileView.vue'
+import Register from '@/pages/RegisterView.vue'
+import Shop from '@/pages/ShopView.vue'
 
 const routes = [
   {

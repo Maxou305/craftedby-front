@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import Loader from '@/components/Loader.vue'
+import Loader from '@/components/LoaderComponent.vue'
 import { useCartStore } from '@/stores/cartStore.js'
 import { useUserStore } from '@/stores/userStore.js'
 

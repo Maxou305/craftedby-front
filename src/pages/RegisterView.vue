@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import Loader from '@/components/Loader.vue'
+import Loader from '@/components/LoaderComponent.vue'
 import { useUserStore } from '@/stores/userStore.js'
 
 const userStore = useUserStore()
@@ -93,6 +93,7 @@ function handleRegister() {
         v-for="message in registerErrorMessages"
         role="alert"
         class="alert alert-error mt-2"
+        :key="message"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

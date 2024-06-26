@@ -1,6 +1,6 @@
 <script setup>
-import Navbar from '@/components/Navbar.vue'
-import Footer from '@/components/Footer.vue'
+import Navbar from '@/components/NavbarCustom.vue'
+import Footer from '@/components/FooterCustom.vue'
 import { useCartStore } from '@/stores/cartStore.js'
 import { useUserStore } from '@/stores/userStore.js'
 
