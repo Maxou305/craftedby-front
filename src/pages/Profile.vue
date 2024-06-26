@@ -1,5 +1,5 @@
 <script setup>
-import { useOrderStore } from '@/stores.js'
+import { useOrderStore } from '@/stores/orderStore.js'
 import { onMounted, ref } from 'vue'
 import { formatDate } from '../utils.js'
 import { useShopStore } from '@/stores/shopStore.js'

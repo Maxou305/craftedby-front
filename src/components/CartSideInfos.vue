@@ -1,5 +1,5 @@
 <script setup>
-import { Reduction, useOrderStore } from '@/stores.js'
+import { Reduction, useOrderStore } from '@/stores/orderStore.js'
 import { ref } from 'vue'
 import { useUserStore } from '@/stores/userStore.js'
 

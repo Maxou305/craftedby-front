@@ -12,8 +12,6 @@ export const Reduction = {
   GUNAL: 13,
 }
 
-// TODO dispatch stores in different files
-
 // store used to handle orders
 export const useOrderStore = defineStore('order', {
   state: () => ({
