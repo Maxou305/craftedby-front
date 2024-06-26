@@ -1,8 +1,8 @@
 <script setup>
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
-import { useUserStore } from '@/stores.js'
 import { useCartStore } from '@/stores/cartStore.js'
+import { useUserStore } from '@/stores/userStore.js'
 
 const userStore = useUserStore()
 const cartStore = useCartStore()

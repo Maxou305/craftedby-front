@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from 'vue'
-import { useUserStore } from '@/stores.js'
 import { useRouter } from 'vue-router'
 import Loader from '@/components/Loader.vue'
+import { useUserStore } from '@/stores/userStore.js'
 
 const userStore = useUserStore()
 const router = useRouter()

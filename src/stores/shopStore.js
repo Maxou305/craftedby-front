@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { useUserStore } from '@/stores.js'
+import { useUserStore } from '@/stores/userStore.js'
 
 const apiUrl = import.meta.env.VITE_API_URL
 

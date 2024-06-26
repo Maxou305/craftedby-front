@@ -1,6 +1,7 @@
 <script setup>
-import { Reduction, useOrderStore, useUserStore } from '@/stores.js'
+import { Reduction, useOrderStore } from '@/stores.js'
 import { ref } from 'vue'
+import { useUserStore } from '@/stores/userStore.js'
 
 const props = defineProps({
   cart: Array,

@@ -1,8 +1,9 @@
 <script setup>
-import { useOrderStore, useUserStore } from '@/stores.js'
+import { useOrderStore } from '@/stores.js'
 import { onMounted, ref } from 'vue'
 import { formatDate } from '../utils.js'
 import { useShopStore } from '@/stores/shopStore.js'
+import { useUserStore } from '@/stores/userStore.js'
 
 const userStore = useUserStore()
 const orderStore = useOrderStore()
