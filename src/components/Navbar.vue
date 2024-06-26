@@ -1,8 +1,9 @@
 <script setup>
-import { useCartStore, useUserStore } from '@/stores.js'
+import { useUserStore } from '@/stores.js'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import Loader from '@/components/Loader.vue'
+import { useCartStore } from '@/stores/cartStore.js'
 
 const cartStore = useCartStore()
 const userStore = useUserStore()

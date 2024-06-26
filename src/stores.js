@@ -13,43 +13,6 @@ export const Reduction = {
 
 // TODO dispatch stores in different files
 
-//store to handle the cart. Every action will save the cart in the local storage
-export const useCartStore = defineStore('cart', {
-  state: () => ({
-    cart: [],
-  }),
-  getters: {
-    totalPrice() {
-      return this.cart.reduce(
-        (total, item) => total + item.product.price * item.quantity,
-        0,
-      )
-    },
-  },
-  actions: {
-    setCart() {
-      if (localStorage.getItem('cart'))
-        this.cart = JSON.parse(localStorage.getItem('cart'))
-    },
-    addToCart(product, color, matter, size, quantity) {
-      const existingProduct = this.cart.find(
-        (item) => item.product.id === product.id,
-      )
-      if (existingProduct) {
-        existingProduct.quantity += quantity
-        localStorage.setItem('cart', JSON.stringify(this.cart))
-      } else {
-        this.cart.push({ product, color, matter, size, quantity })
-        localStorage.setItem('cart', JSON.stringify(this.cart))
-      }
-    },
-    removeFromCart(id) {
-      this.cart = [...this.cart.filter((item) => item.product.id !== id)]
-      localStorage.setItem('cart', JSON.stringify(this.cart))
-    },
-  },
-})
-
 // store to handle the user (becareful with the async !!!!!)
 export const useUserStore = defineStore('user', {
   state: () => ({

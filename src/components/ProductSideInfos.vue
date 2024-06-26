@@ -1,7 +1,7 @@
 <script setup>
-import { useCartStore } from '@/stores.js'
 import { ref } from 'vue'
 import Toaster from '@/components/Toaster.vue'
+import { useCartStore } from '@/stores/cartStore.js'
 
 const props = defineProps({
   product: {},
