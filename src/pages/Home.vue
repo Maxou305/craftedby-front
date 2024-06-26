@@ -4,8 +4,8 @@ import ProductList from '@/components/ProductList.vue'
 import ShopList from '@/components/ShopList.vue'
 import ShopAd from '@/components/ShopAd.vue'
 import CategoryList from '@/components/CategoryList.vue'
-import { useProductsStore } from '@/stores.js'
 import { onMounted } from 'vue'
+import { useProductsStore } from '@/stores/productStore.js'
 
 const store = useProductsStore()
 

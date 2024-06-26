@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
-import { useFetch } from '@vueuse/core'
 
 const apiUrl = import.meta.env.VITE_API_URL
+const csrfUrl = import.meta.env.VITE_API_CSRF_TOKEN_URL
 
 export const Reduction = {
   ZOB: 100,
@@ -46,27 +46,6 @@ export const useCartStore = defineStore('cart', {
     removeFromCart(id) {
       this.cart = [...this.cart.filter((item) => item.product.id !== id)]
       localStorage.setItem('cart', JSON.stringify(this.cart))
-    },
-  },
-})
-
-// store to handle all the products (be careful with the async !!!!)
-export const useProductsStore = defineStore('product', {
-  state: () => ({
-    products: [],
-  }),
-  getters: {},
-  actions: {
-    async fetchProducts() {
-      const { data } = await useFetch(`${apiUrl}/products`).get().json()
-      this.products = data
-    },
-    async getById(id) {
-      const response = await fetch(`${apiUrl}/products/${id}`)
-      return await response.json()
-    },
-    getByCategory(category) {
-      return this.filter((product) => product.category === category)
     },
   },
 })
@@ -127,16 +106,19 @@ export const useUserStore = defineStore('user', {
           console.error('Error: ', error)
         })
     },
-    login(username, password) {
+    async login(username, password) {
+      await getCsrfToken()
       return fetch(`${apiUrl}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Accept: 'application/json',
         },
         body: JSON.stringify({
           username,
           password,
         }),
+        credentials: 'same-origin',
       })
         .then((res) => res.json())
         .then((json) => {
@@ -270,4 +252,22 @@ function emptyCart() {
   const cartStore = useCartStore()
   cartStore.cart = []
   localStorage.setItem('cart', JSON.stringify([]))
+}
+
+async function getCsrfToken() {
+  return fetch(csrfUrl, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    credentials: 'include',
+  })
+    .then((res) => {
+      window.cookie = res.headers.get('Set-Cookie')
+      console.log('sdfsdfsfe', res)
+    })
+    .catch((error) => {
+      console.error('Error: ', error)
+    })
 }
