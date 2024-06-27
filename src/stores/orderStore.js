@@ -44,6 +44,7 @@ export const useOrderStore = defineStore('order', {
     },
     update(order, values) {
       this.order = { ...order, ...values }
+      localStorage.setItem('order', JSON.stringify(this.order))
     },
     validateOrder(order) {
       const token = useUserStore().token

@@ -18,7 +18,7 @@ export const useCartStore = defineStore('cart', {
       if (localStorage.getItem('cart'))
         this.cart = JSON.parse(localStorage.getItem('cart'))
     },
-    addToCart(product, color, matter, size, quantity) {
+    addToCart(product, color, material, size, quantity) {
       const existingProduct = this.cart.find(
         (item) => item.product.id === product.id,
       )
@@ -26,7 +26,7 @@ export const useCartStore = defineStore('cart', {
         existingProduct.quantity += quantity
         localStorage.setItem('cart', JSON.stringify(this.cart))
       } else {
-        this.cart.push({ product, color, matter, size, quantity })
+        this.cart.push({ product, color, material, size, quantity })
         localStorage.setItem('cart', JSON.stringify(this.cart))
       }
     },
