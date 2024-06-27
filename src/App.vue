@@ -1,8 +1,8 @@
 <script setup>
-import Navbar from '@/components/NavbarCustom.vue'
-import Footer from '@/components/FooterCustom.vue'
 import { useCartStore } from '@/stores/cartStore.js'
 import { useUserStore } from '@/stores/userStore.js'
+import FooterCustom from '@/components/FooterCustom.vue'
+import NavbarCustom from '@/components/NavbarCustom.vue'
 
 const userStore = useUserStore()
 const cartStore = useCartStore()
@@ -12,8 +12,7 @@ cartStore.setCart()
 </script>
 
 <template>
-  <Navbar />
+  <NavbarCustom />
   <RouterView />
-  <Footer />
-  <!--  TODO Refacto single name component-->
+  <FooterCustom />
 </template>
