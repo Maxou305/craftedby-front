@@ -13,7 +13,7 @@ export const useUserStore = defineStore('user', {
   getters: {},
   actions: {
     getAuthUser() {
-      if (localStorage.getItem('token') && this.token === null) {
+      if (localStorage.getItem('token')) {
         this.token = localStorage.getItem('token')
       } else {
         return
