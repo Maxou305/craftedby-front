@@ -14,7 +14,7 @@ export const useCartStore = defineStore('cart', {
     },
   },
   actions: {
-    setCart() {
+    init() {
       if (localStorage.getItem('cart'))
         this.cart = JSON.parse(localStorage.getItem('cart'))
     },
