@@ -1,6 +1,6 @@
 <script setup>
 import { Reduction, useOrderStore } from '@/stores/orderStore.js'
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import { useUserStore } from '@/stores/userStore.js'
 
 const props = defineProps({
@@ -18,17 +18,21 @@ const props = defineProps({
 })
 
 const promo = ref(0)
+const wrongCode = ref(null)
 
-const creatorCode = ref(null)
+const creatorCode = ref('')
 const toto = ref(false)
 
 const orderStore = useOrderStore()
 const userStore = useUserStore()
 
 function applyCode() {
-  toto.value = true
-  promo.value = Reduction[creatorCode.value.toUpperCase()]
-  console.log(promo.value)
+  promo.value = 0
+  wrongCode.value = false
+  if (Reduction[creatorCode.value.toUpperCase()]) {
+    toto.value = true
+    promo.value = Reduction[creatorCode.value.toUpperCase()]
+  } else wrongCode.value = true
 }
 
 function handleClick() {
@@ -67,14 +71,19 @@ function handleClick() {
         </div>
       </div>
     </div>
-    <div v-if="!isPaymentStep || !toto" class="flex items-center gap-2">
-      <input
-        type="text"
-        placeholder="CODE CREATEUR"
-        class="input input-bordered w-full"
-        v-model="creatorCode"
-      />
-      <button @click="applyCode" class="btn bg-emerald-300">Appliquer</button>
+    <div v-if="!isPaymentStep || !toto">
+      <div class="flex gap-2">
+        <input
+          type="text"
+          placeholder="CODE CREATEUR"
+          class="input input-bordered w-full"
+          v-model="creatorCode"
+        />
+        <button @click="applyCode" class="btn bg-emerald-300">Appliquer</button>
+      </div>
+      <p v-if="wrongCode" class="mt-2 text-vermillon">
+        Ce code créateur n'existe pas !
+      </p>
     </div>
     <div class="flex flex-col gap-2">
       <p class="text-end text-title font-bold">
