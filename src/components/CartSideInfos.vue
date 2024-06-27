@@ -32,7 +32,7 @@ function applyCode() {
 }
 
 function handleClick() {
-  orderStore.newOrder(userStore.user, creatorCode.value, promo.value)
+  orderStore.newOrder(userStore.user.id, creatorCode.value, promo.value)
   props.handleNextStep()
 }
 </script>

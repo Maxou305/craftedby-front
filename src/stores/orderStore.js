@@ -29,16 +29,13 @@ export const useOrderStore = defineStore('order', {
         },
       }).then((res) => res.json())
     },
-    newOrder(user, creatorCode, reduction) {
+    newOrder(userId, creatorCode, reduction) {
       const store = useCartStore()
       this.order = {
         products: store.cart,
         price: store.totalPrice,
         validatedStatus: false,
-        user,
-        shippingCountry: null,
-        shippingMode: null,
-        shippingPrice: null,
+        userId,
         artisan: null,
         creatorCode,
         reduction,
@@ -57,16 +54,11 @@ export const useOrderStore = defineStore('order', {
           id: product.product.id,
           price: product.product.price,
           color: product.color,
-          matter: product.matter,
+          material: product.material,
           size: product.size,
           quantity: product.quantity,
         }
       })
-      order.user = {
-        id: order.user.id,
-        username: order.user.username,
-        email: order.user.email,
-      }
 
       fetch(`${apiUrl}/orders`, {
         method: 'POST',
@@ -77,8 +69,7 @@ export const useOrderStore = defineStore('order', {
         body: JSON.stringify(order),
       })
         .then((res) => res.json())
-        .then((json) => {
-          console.log('final order', json)
+        .then(() => {
           emptyCart()
         })
         .catch((error) => {
