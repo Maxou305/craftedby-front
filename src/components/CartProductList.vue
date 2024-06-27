@@ -7,7 +7,11 @@ const props = defineProps({
 </script>
 <template>
   <div class="flex flex-col gap-2">
-    <CartProductCard v-for="product in props.cart" :product="product" />
+    <CartProductCard
+      v-for="product in props.cart"
+      :product="product"
+      :key="product.name"
+    />
   </div>
 </template>
 

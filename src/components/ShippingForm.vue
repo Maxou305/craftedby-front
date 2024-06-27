@@ -1,6 +1,7 @@
 <script setup>
-import { useOrderStore, useUserStore } from '@/stores.js'
+import { useOrderStore } from '@/stores/orderStore.js'
 import { ref } from 'vue'
+import { useUserStore } from '@/stores/userStore.js'
 
 const ShippingPrice = {
   BOUTIQUE: 0,

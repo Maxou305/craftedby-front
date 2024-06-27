@@ -3,9 +3,9 @@ import { useRoute } from 'vue-router'
 import ShareButton from '@/components/ShareButton.vue'
 import ProductDescription from '@/components/ProductDescription.vue'
 import ProductSideInfos from '@/components/ProductSideInfos.vue'
-import { useProductsStore } from '@/stores.js'
 import { ref } from 'vue'
 import GoToShopButton from '@/components/GoToShopButton.vue'
+import { useProductsStore } from '@/stores/productStore.js'
 
 const route = useRoute()
 

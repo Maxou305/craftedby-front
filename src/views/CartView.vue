@@ -4,11 +4,12 @@ import CartProductList from '@/components/CartProductList.vue'
 import CartRecommendations from '@/components/CartRecommendations.vue'
 import CartSideInfos from '@/components/CartSideInfos.vue'
 import { ref } from 'vue'
-import { useCartStore, useUserStore } from '@/stores.js'
-import Shipping from '@/components/Shipping.vue'
-import Payment from '@/components/Payment.vue'
-import Confirmation from '@/components/Confirmation.vue'
+import Shipping from '@/components/ShippingForm.vue'
+import Payment from '@/components/PaymentForm.vue'
+import Confirmation from '@/components/ConfirmationForm.vue'
 import AuthForm from '@/components/AuthForm.vue'
+import { useCartStore } from '@/stores/cartStore.js'
+import { useUserStore } from '@/stores/userStore.js'
 
 const steps = ref([
   { name: 'Panier', checked: true },

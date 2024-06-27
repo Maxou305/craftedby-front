@@ -1,6 +1,6 @@
 <script setup>
 import CartSideInfos from '@/components/CartSideInfos.vue'
-import { useOrderStore } from '@/stores.js'
+import { useOrderStore } from '@/stores/orderStore.js'
 import { ref } from 'vue'
 
 const props = defineProps({
