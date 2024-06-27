@@ -1,26 +1,26 @@
 <script setup>
-const props = defineProps({
+defineProps({
   description: String,
 })
 </script>
 
 <template>
   <div
-    class="h-auto border bg-seasalt rounded-2xl p-6 flex flex-col gap-4 border-platinum"
+    class="flex h-auto flex-col gap-4 rounded-2xl border border-platinum bg-seasalt p-6"
   >
-    <h2 class="text-normal font-bold font-nunito">Notre produit</h2>
+    <h2 class="font-nunito text-normal font-bold">Notre produit</h2>
     <p class="font-nunito">
-      {{ props.description }}
+      {{ description }}
     </p>
-    <h2 class="text-normal font-bold font-nunito">
+    <h2 class="font-nunito text-normal font-bold">
       Caractéristiques du produit
     </h2>
     <p class="font-nunito">
-      {{ props.description }}
+      {{ description }}
     </p>
-    <h2 class="text-normal font-bold font-nunito">Kikilafé</h2>
+    <h2 class="font-nunito text-normal font-bold">Kikilafé</h2>
     <p class="font-nunito">
-      {{ props.description }}
+      {{ description }}
     </p>
   </div>
 </template>

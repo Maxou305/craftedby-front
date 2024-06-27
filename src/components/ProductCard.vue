@@ -1,5 +1,5 @@
 <script setup>
-const props = defineProps({
+defineProps({
   product: {},
 })
 </script>
@@ -11,8 +11,8 @@ const props = defineProps({
     <div class="flex w-full items-center justify-around">
       <img
         class="h-60 w-auto items-center rounded-2xl object-cover"
-        :src="props.product.image"
-        :alt="props.product.title"
+        :src="product.image"
+        :alt="product.title"
       />
     </div>
     <div class="flex flex-col justify-between gap-4">
@@ -20,16 +20,16 @@ const props = defineProps({
         <h2
           class="max-w-[200px] overflow-hidden overflow-ellipsis whitespace-nowrap font-nunito text-xl font-bold"
         >
-          {{ props.product.title }}
+          {{ product.title }}
         </h2>
         <p class="max-h-[100px] overflow-auto font-nunito">
-          {{ props.product.description }}
+          {{ product.description }}
         </p>
       </div>
       <div class="flex items-center justify-between">
-        <p class="font-nunito text-xl font-bold">{{ props.product.price }} €</p>
+        <p class="font-nunito text-xl font-bold">{{ product.price }} €</p>
         <button
-          @click="$router.push(`/product/${props.product.id}`)"
+          @click="$router.push(`/product/${product.id}`)"
           class="btn bg-vermillon"
         >
           Voir le produit

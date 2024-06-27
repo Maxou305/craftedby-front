@@ -1,12 +1,12 @@
 <script setup>
-const props = defineProps({
+defineProps({
   click: Function,
 })
 </script>
 
 <template>
   <button
-    @click="props.click"
+    @click="click"
     class="btn rounded-xl border border-space-cadet bg-seasalt"
   >
     Voir le shop

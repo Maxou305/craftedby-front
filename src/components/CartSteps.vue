@@ -1,5 +1,5 @@
 <script setup>
-const props = defineProps({
+defineProps({
   steps: Array,
 })
 </script>
@@ -8,7 +8,7 @@ const props = defineProps({
   <ul class="steps steps-horizontal m-auto lg:steps-horizontal">
     <li
       :class="{ step: true, 'step-primary': step.checked }"
-      v-for="step in props.steps"
+      v-for="step in steps"
       :key="step.name"
     >
       {{ step.name }}
