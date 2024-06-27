@@ -15,6 +15,8 @@ export const useUserStore = defineStore('user', {
     getAuthUser() {
       if (localStorage.getItem('token') && this.token === null) {
         this.token = localStorage.getItem('token')
+      } else {
+        return
       }
       return fetch(`${apiUrl}/me`, {
         method: 'GET',
@@ -136,7 +138,6 @@ async function getCsrfToken() {
   })
     .then((res) => {
       window.cookie = res.headers.get('Set-Cookie')
-      console.log('sdfsdfsfe', res)
     })
     .catch((error) => {
       console.error('Error: ', error)
