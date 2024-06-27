@@ -15,7 +15,6 @@ const product = ref(null)
 
 store.getById(route.params.id).then((res) => {
   product.value = res
-  console.log(product.value)
 })
 </script>
 
