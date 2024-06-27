@@ -1,6 +1,6 @@
 <script setup>
 import { Reduction, useOrderStore } from '@/stores/orderStore.js'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useUserStore } from '@/stores/userStore.js'
 
 const props = defineProps({
@@ -32,7 +32,11 @@ function applyCode() {
 }
 
 function handleClick() {
-  orderStore.newOrder(userStore.user.id, creatorCode.value, promo.value)
+  orderStore.newOrder(
+    userStore.user ? userStore.user.id : null,
+    creatorCode.value,
+    promo.value,
+  )
   props.handleNextStep()
 }
 </script>

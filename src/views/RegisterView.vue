@@ -3,8 +3,11 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import Loader from '@/components/LoaderComponent.vue'
 import { useUserStore } from '@/stores/userStore.js'
+import { storeToRefs } from 'pinia'
 
 const userStore = useUserStore()
+const { isAuthenticated } = storeToRefs(userStore)
+
 const router = useRouter()
 
 const username = ref('')
@@ -32,7 +35,7 @@ function handleRegister() {
 
 <template>
   <div class="m-auto my-4 mt-24 flex max-w-[1440px] flex-wrap p-4 font-nunito">
-    <div class="m-auto flex flex-col gap-4">
+    <div v-if="!isAuthenticated" class="m-auto flex flex-col gap-4">
       <h1 class="text-title font-bold">Inscription</h1>
       <label class="input input-bordered flex items-center gap-2">
         <svg
@@ -112,9 +115,22 @@ function handleRegister() {
       </div>
 
       <div class="mt-4 text-center">
-        <button class="btn bg-vermillon" @click="handleRegister">
+        <button
+          class="btn bg-vermillon text-platinum hover:bg-platinum hover:text-vermillon"
+          @click="handleRegister"
+        >
           <span v-if="!isTryingToRegister">Connexion</span>
           <Loader v-else />
+        </button>
+      </div>
+    </div>
+    <div v-else class="m-auto flex flex-col gap-4">
+      <div class="mt-4 text-center">
+        <button
+          class="btn bg-vermillon text-platinum hover:bg-platinum hover:text-vermillon"
+          @click="$router.push('/')"
+        >
+          <span>Retour à l'accueil</span>
         </button>
       </div>
     </div>
