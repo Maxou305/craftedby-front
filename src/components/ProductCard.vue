@@ -15,7 +15,7 @@ defineProps({
         :alt="product.title"
       />
     </div>
-    <div class="flex flex-col justify-between gap-4">
+    <div class="flex w-full flex-col justify-between gap-4">
       <div class="flex flex-wrap gap-4">
         <h2
           class="max-w-[200px] overflow-hidden overflow-ellipsis whitespace-nowrap font-nunito text-xl font-bold"
@@ -26,7 +26,7 @@ defineProps({
           {{ product.description }}
         </p>
       </div>
-      <div class="flex items-center justify-between">
+      <div class="flex w-auto items-center justify-between">
         <p class="font-nunito text-xl font-bold">{{ product.price }} €</p>
         <button
           @click="$router.push(`/product/${product.id}`)"

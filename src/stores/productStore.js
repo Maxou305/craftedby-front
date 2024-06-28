@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 
 import { useFetch } from '@vueuse/core'
 import { useUserStore } from '@/stores/userStore.js'
+import { useShopStore } from '@/stores/shopStore.js'
 
 const apiUrl = import.meta.env.VITE_API_URL
 export const useProductsStore = defineStore('product', {
@@ -33,7 +34,7 @@ export const useProductsStore = defineStore('product', {
         body: JSON.stringify(product),
       })
         .then((res) => {
-          return res.json()
+          return useShopStore().shop.products.push(res.json())
         })
         .catch((error) => console.error('Error: ', error))
     },
