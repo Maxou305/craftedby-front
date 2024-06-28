@@ -32,10 +32,10 @@ export const useProductsStore = defineStore('product', {
         },
         body: JSON.stringify(product),
       })
-        .then((res) => res.json())
-        .then((json) => {
-          console.log('Product created: ', json)
+        .then((res) => {
+          return res.json()
         })
+        .catch((error) => console.error('Error: ', error))
     },
   },
 })
