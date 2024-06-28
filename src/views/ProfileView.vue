@@ -4,6 +4,7 @@ import { onMounted, ref } from 'vue'
 import { formatDate } from '../utils.js'
 import { useShopStore } from '@/stores/shopStore.js'
 import { useUserStore } from '@/stores/userStore.js'
+import AddProductForm from '@/components/AddProductForm.vue'
 
 const userStore = useUserStore()
 const orderStore = useOrderStore()
@@ -239,6 +240,7 @@ function handleValidateCreationShop() {
           >
             Voir mon shop
           </button>
+          <AddProductForm />
         </div>
         <div v-if="isCreatingShop">
           <div class="card-body flex flex-col">

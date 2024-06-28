@@ -2,6 +2,7 @@
 import { defineStore } from 'pinia'
 
 import { useFetch } from '@vueuse/core'
+import { useUserStore } from '@/stores/userStore.js'
 
 const apiUrl = import.meta.env.VITE_API_URL
 export const useProductsStore = defineStore('product', {
@@ -20,6 +21,21 @@ export const useProductsStore = defineStore('product', {
     },
     getByCategory(category) {
       return this.filter((product) => product.category === category)
+    },
+    createProduct(product) {
+      const token = useUserStore().token
+      return fetch(`${apiUrl}/products`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(product),
+      })
+        .then((res) => res.json())
+        .then((json) => {
+          console.log('Product created: ', json)
+        })
     },
   },
 })
