@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { useUserStore } from '@/stores/userStore.js'
+import { getCookie } from '@/stores/userStore.js'
 
 const apiUrl = import.meta.env.VITE_API_URL
 
@@ -11,12 +11,32 @@ export const useShopStore = defineStore('shop', {
   getters: {},
   actions: {
     getAllShops() {
-      fetch(`${apiUrl}/shops`)
+      const token = decodeURIComponent(getCookie('XSRF-TOKEN'))
+      fetch(`${apiUrl}/shops`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          'X-XSRF-TOKEN': token,
+          Origin: 'http://localhost',
+        },
+        credentials: 'include',
+      })
         .then((res) => res.json())
         .then((json) => (this.shops = json))
     },
     getShopById(id) {
-      return fetch(`${apiUrl}/shops/${id}`)
+      const token = decodeURIComponent(getCookie('XSRF-TOKEN'))
+      return fetch(`${apiUrl}/shops/${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          'X-XSRF-TOKEN': token,
+          Origin: 'http://localhost',
+        },
+        credentials: 'include',
+      })
         .then((res) => {
           return res.json()
         })
@@ -27,7 +47,17 @@ export const useShopStore = defineStore('shop', {
         .catch((e) => console.log('Error : ', e))
     },
     getShopByUserId(userId) {
-      return fetch(`${apiUrl}/shops/user/${userId}`)
+      const token = decodeURIComponent(getCookie('XSRF-TOKEN'))
+      return fetch(`${apiUrl}/shops/user/${userId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          'X-XSRF-TOKEN': token,
+          Origin: 'http://localhost',
+        },
+        credentials: 'include',
+      })
         .then((res) => {
           return res.json()
         })
@@ -38,15 +68,17 @@ export const useShopStore = defineStore('shop', {
         .catch((e) => console.log('Error : ', e))
     },
     newShop(newShop) {
-      const token = useUserStore().token
-      console.log('token', token)
+      const token = decodeURIComponent(getCookie('XSRF-TOKEN'))
       return fetch(`${apiUrl}/shops`, {
         method: 'POST',
         body: JSON.stringify(newShop),
         headers: {
-          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
+          Accept: 'application/json',
+          'X-XSRF-TOKEN': token,
+          Origin: 'http://localhost',
         },
+        credentials: 'include',
       })
         .then((res) => {
           console.log('res', res)

@@ -1,14 +1,12 @@
 <script setup>
-import { useOrderStore } from '@/stores/orderStore.js'
 import { onMounted, ref } from 'vue'
 import { formatDate } from '../utils.js'
-import { useShopStore } from '@/stores/shopStore.js'
 import { useUserStore } from '@/stores/userStore.js'
 import ShopComponent from '@/components/ShopComponent.vue'
 
 const userStore = useUserStore()
-const orderStore = useOrderStore()
-const shopStore = useShopStore()
+// const orderStore = useOrderStore()
+// const shopStore = useShopStore()
 
 const user = ref(userStore.user)
 const orders = ref(null)
@@ -19,17 +17,17 @@ const isLoading = ref(true)
 const isEditingProfile = ref(false)
 
 onMounted(() => {
-  userStore.getAuthUser().then(() => {
-    user.value = userStore.user
-    if (user.value) {
-      orderStore.getByUserId(user.value.id).then((res) => {
-        orders.value = res
-      })
-      shopStore.getShopByUserId(user.value.id).then((res) => {
-        shop.value = res
-      })
-    }
-  })
+  // userStore.getAuthUser().then(() => {
+  //   user.value = userStore.user
+  //   if (user.value) {
+  //     orderStore.getByUserId(user.value.id).then((res) => {
+  //       orders.value = res
+  //     })
+  //     shopStore.getShopByUserId(user.value.id).then((res) => {
+  //       shop.value = res
+  //     })
+  //   }
+  // })
 
   isLoading.value = false
 })

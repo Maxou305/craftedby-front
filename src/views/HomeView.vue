@@ -6,8 +6,11 @@ import ShopAd from '@/components/ShopAd.vue'
 import CategoryList from '@/components/CategoryList.vue'
 import { onMounted } from 'vue'
 import { useProductsStore } from '@/stores/productStore.js'
+import { useUserStore } from '@/stores/userStore.js'
 
 const store = useProductsStore()
+
+useUserStore().getCsrfToken()
 
 onMounted(() => {
   store.fetchProducts()

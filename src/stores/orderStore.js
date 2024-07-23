@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { useUserStore } from '@/stores/userStore.js'
+import { getCookie, useUserStore } from '@/stores/userStore.js'
 import { useCartStore } from '@/stores/cartStore.js'
 
 const apiUrl = import.meta.env.VITE_API_URL
@@ -21,12 +21,16 @@ export const useOrderStore = defineStore('order', {
   getters: {},
   actions: {
     getByUserId(id) {
+      const token = decodeURIComponent(getCookie('XSRF-TOKEN'))
       return fetch(`${apiUrl}/orders/user/${id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${this.token}`,
+          Accept: 'application/json',
+          'X-XSRF-TOKEN': token,
+          Origin: 'http://localhost',
         },
+        credentials: 'include',
       }).then((res) => res.json())
     },
     newOrder(userId, creatorCode, reduction) {
@@ -47,7 +51,7 @@ export const useOrderStore = defineStore('order', {
       localStorage.setItem('order', JSON.stringify(this.order))
     },
     validateOrder(order) {
-      const token = useUserStore().token
+      const token = decodeURIComponent(getCookie('XSRF-TOKEN'))
 
       order.validatedStatus = true
       order.products = order.products.map((product) => {
@@ -65,8 +69,11 @@ export const useOrderStore = defineStore('order', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
+          Accept: 'application/json',
+          'X-XSRF-TOKEN': token,
+          Origin: 'http://localhost',
         },
+        credentials: 'include',
         body: JSON.stringify(order),
       })
         .then((res) => res.json())

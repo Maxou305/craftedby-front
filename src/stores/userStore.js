@@ -4,29 +4,29 @@ const apiUrl = import.meta.env.VITE_API_URL
 const csrfUrl = import.meta.env.VITE_API_CSRF_TOKEN_URL
 
 // store to handle the user (becareful with the async !!!!!)
+
 export const useUserStore = defineStore('user', {
   state: () => ({
     user: null,
-    token: null,
     isAuthenticated: false,
   }),
   getters: {},
   actions: {
     getAuthUser() {
-      if (localStorage.getItem('token')) {
-        this.token = localStorage.getItem('token')
-      } else {
-        return
-      }
+      const token = decodeURIComponent(getCookie('XSRF-TOKEN'))
       return fetch(`${apiUrl}/me`, {
         method: 'GET',
         headers: {
-          Authorization: `Bearer ${this.token}`,
           'Content-Type': 'application/json',
+          Accept: 'application/json',
+          'X-XSRF-TOKEN': token,
+          Origin: 'http://localhost',
         },
+        credentials: 'include',
       })
         .then((res) => res.json())
         .then((json) => {
+          console.log('json', json)
           if (json) {
             this.user = json
             this.isAuthenticated = true
@@ -38,12 +38,18 @@ export const useUserStore = defineStore('user', {
           console.error('Error: ', error)
         })
     },
-    register(username, email, password) {
+    async register(username, email, password) {
+      await this.getCsrfToken()
+      const token = decodeURIComponent(getCookie('XSRF-TOKEN'))
       return fetch(`${apiUrl}/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Accept: 'application/json',
+          'X-XSRF-TOKEN': token,
+          Origin: 'http://localhost',
         },
+        credentials: 'include',
         body: JSON.stringify({
           username,
           email,
@@ -52,9 +58,8 @@ export const useUserStore = defineStore('user', {
       })
         .then((res) => res.json())
         .then((json) => {
-          localStorage.setItem('token', json.token)
-          this.token = json.token
           this.isAuthenticated = true
+          this.getAuthUser()
           return json
         })
         .catch((error) => {
@@ -62,24 +67,25 @@ export const useUserStore = defineStore('user', {
         })
     },
     async login(username, password) {
-      await getCsrfToken()
+      const token = decodeURIComponent(getCookie('XSRF-TOKEN'))
       return fetch(`${apiUrl}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
+          'X-XSRF-TOKEN': token,
+          Origin: 'http://localhost',
         },
         body: JSON.stringify({
           username,
           password,
         }),
-        credentials: 'same-origin',
+        credentials: 'include',
       })
         .then((res) => res.json())
         .then((json) => {
-          localStorage.setItem('token', json.token)
-          this.token = json.token
           this.isAuthenticated = true
+          this.getAuthUser()
           return json
         })
         .catch((error) => {
@@ -87,12 +93,16 @@ export const useUserStore = defineStore('user', {
         })
     },
     logout() {
+      const token = decodeURIComponent(getCookie('XSRF-TOKEN'))
       return fetch(`${apiUrl}/logout`, {
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${this.token}`,
           'Content-Type': 'application/json',
+          Accept: 'application/json',
+          'X-XSRF-TOKEN': token,
+          Origin: 'http://localhost',
         },
+        credentials: 'include',
       })
         .then((res) => res.json())
         .then((json) => {
@@ -107,12 +117,16 @@ export const useUserStore = defineStore('user', {
         })
     },
     update(user, newValues) {
+      const token = decodeURIComponent(getCookie('XSRF-TOKEN'))
       return fetch(`${apiUrl}/users/${user.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${this.token}`,
+          Accept: 'application/json',
+          'X-XSRF-TOKEN': token,
+          Origin: 'http://localhost',
         },
+        credentials: 'include',
         body: JSON.stringify(newValues),
       })
         .then((res) => res.json())
@@ -124,22 +138,30 @@ export const useUserStore = defineStore('user', {
           console.error('Error: ', error)
         })
     },
+    async getCsrfToken() {
+      const token = decodeURIComponent(getCookie('XSRF-TOKEN'))
+      return fetch(csrfUrl, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          'X-XSRF-TOKEN': token,
+          Origin: 'http://localhost',
+        },
+        credentials: 'include',
+      })
+        .then((res) => {
+          console.log('res', res)
+        })
+        .catch((error) => {
+          console.error('Error: ', error)
+        })
+    },
   },
 })
 
-async function getCsrfToken() {
-  return fetch(csrfUrl, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-    },
-    credentials: 'include',
-  })
-    .then((res) => {
-      window.cookie = res.headers.get('Set-Cookie')
-    })
-    .catch((error) => {
-      console.error('Error: ', error)
-    })
+export function getCookie(name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
 }

@@ -9,7 +9,6 @@ const cartStore = useCartStore()
 const userStore = useUserStore()
 const router = useRouter()
 
-userStore.getAuthUser()
 cartStore.init()
 
 const isTryingToConnect = ref(false)

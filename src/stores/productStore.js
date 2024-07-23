@@ -2,7 +2,7 @@
 import { defineStore } from 'pinia'
 
 import { useFetch } from '@vueuse/core'
-import { useUserStore } from '@/stores/userStore.js'
+import { getCookie, useUserStore } from '@/stores/userStore.js'
 import { useShopStore } from '@/stores/shopStore.js'
 
 const apiUrl = import.meta.env.VITE_API_URL
@@ -24,13 +24,16 @@ export const useProductsStore = defineStore('product', {
       return this.filter((product) => product.category === category)
     },
     createProduct(product) {
-      const token = useUserStore().token
+      const token = decodeURIComponent(getCookie('XSRF-TOKEN'))
       return fetch(`${apiUrl}/products`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
+          Accept: 'application/json',
+          'X-XSRF-TOKEN': token,
+          Origin: 'http://localhost',
         },
+        credentials: 'include',
         body: JSON.stringify(product),
       })
         .then((res) => {
