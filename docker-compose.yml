@@ -1,0 +1,11 @@
+services:
+  front:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: front
+    ports:
+      - 80:80
+    environment:
+        VITE_API_URL: http://localhost:8000/api
+        VITE_API_CSRF_TOKEN_URL:  http://localhost:8000/api/sanctum/csrf-cookie
