@@ -2,7 +2,7 @@ name: Deploy
 
 on:
   workflow_run:
-    workflows: [ "Build, Test, Docker and Merge", "Hotfix" ]
+    workflows: [ "Release", "Hotfix" ]
     types:
       - completed
 
