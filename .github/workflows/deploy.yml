@@ -1,0 +1,54 @@
+name: Deploy
+
+on:
+  workflow_run:
+    workflows: [ "Build, Test, Docker and Merge", "Hotfix" ]
+    types:
+      - completed
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/crafted-front:latest
+
+  deploy:
+    needs: docker
+    runs-on: ubuntu-latest
+    if: success()
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to remote server
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.DEPLOY_SERVER_HOST }}
+          username: ${{ secrets.DEPLOY_SERVER_USER }}
+          key: ${{ secrets.DEPLOY_SERVER_SSH_KEY }}
+          script: |
+            cd /home/${{ secrets.DEPLOY_SERVER_USER }}
+            docker-compose pull
+            docker-compose restart frontend
